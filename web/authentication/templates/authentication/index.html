@@ -23,6 +23,8 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="register"/>
             <h1>Create Account</h1>
             <div class="flex-overwriter">
                 {{ register_form.first_name }}
@@ -37,6 +39,8 @@
     </div>
     <div class="form-container sign-in-container">
         <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login"/>
             <h1>Sign in</h1>
             {% for field in login_form %}
                 {% if field.label %}
