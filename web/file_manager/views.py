@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.auth.contrib import authenticate, login
+from django.auth.contrib import authenticate, login, logout
 from django.http import HttpResponseForbidden
 from .models import *
 from .forms import *
@@ -22,6 +22,10 @@ def auth_login(request):
     else:
         form = LoginForm()
         return render(request, 'file_manager/login.html', {'form': form})
+
+def auth_logout(request):
+    logout(request)
+    return redirect('/')
 
 def get_home(request):
     if request.user.is_authenticated:
