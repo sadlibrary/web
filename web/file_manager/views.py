@@ -4,7 +4,7 @@ from django.http import HttpResponseForbidden
 from .models import *
 from .forms import *
 
-def login(request):
+def auth_login(request):
     if request.method == 'POST':
         form = LoginForm(request.data)
         if form.is_valid():
