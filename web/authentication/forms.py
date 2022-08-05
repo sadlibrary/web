@@ -28,23 +28,46 @@ class LoginForm(AuthenticationForm):
 
 
 class RegisterForm(UserCreationForm):
-    first_name = forms.CharField(max_length=100,
-                                 required=True,
-                                 widget=forms.TextInput())
-    last_name = forms.CharField(max_length=100,
-                                required=True,
-                                widget=forms.TextInput())
-    username = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput())
-    email = forms.EmailField(required=True,
-                             widget=forms.TextInput())
-    password1 = forms.CharField(max_length=50,
-                                required=True,
-                                widget=forms.PasswordInput(attrs={'id': 'password',}))
-    password2 = forms.CharField(max_length=50,
-                                required=True,
-                                widget=forms.PasswordInput(attrs={'id': 'password',}))
+    first_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "First Name"}
+        ))
+
+    last_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Last Name"}
+        ))
+
+    username = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username"}
+        ))
+
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email"}
+        ))
+
+    password1 = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={'id': 'password', "placeholder": "Password"}
+        ))
+
+    password2 = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={'id': 'password', "placeholder": "Repeat Password"}
+        ))
 
     class Meta:
         model = User

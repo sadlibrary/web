@@ -25,18 +25,18 @@
         <form method="post">
             <h1>Create Account</h1>
             <div class="flex-overwriter">
-                <input type="text" placeholder="First Name"/>
-                <input type="text" placeholder="Last Name"/>
+                {{ register_form.first_name }}
+                {{ register_form.last_name }}
             </div>
-            <input type="text" placeholder="Username"/>
-            <input type="email" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
-            <input type="password" placeholder="Repeat Password"/>
+            {{ register_form.username }}
+            {{ register_form.email }}
+            {{ register_form.password1 }}
+            {{ register_form.password2 }}
             <button>Sign Up</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form method="post">
             <h1>Sign in</h1>
             {% for field in login_form %}
                 {% if field.label %}
@@ -49,7 +49,7 @@
                 {% endif %}
             {% endfor %}
 
-                      <button>Sign In</button>
+            <button>Sign In</button>
         </form>
     </div>
     <div class="overlay-container">
