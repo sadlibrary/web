@@ -10,6 +10,9 @@
   --shadow-1: rgba(0, 0, 0, 0.25);
   --shadow-2: rgba(0, 0, 0, 0.22);
   --input-color: #eeeeee;
+  --danger: #dc3545;
+  --success: #28a745;
+  --warning: #ffc107;
 }
 
 * {
@@ -260,4 +263,20 @@ input {
 
 .social-container {
   margin: 20px 0;
+}
+
+#error-success-message {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0.4rem 0;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.success-message {
+  color: var(--success);
+}
+
+.error-message {
+  color: var(--danger);
 }
