@@ -1,8 +1,18 @@
 from django.shortcuts import render, redirect
-from django.auth.contrib import authenticate, login, logout
-from django.http import HttpResponseForbidden
-from .models import *
-from .forms import *
+from authentication.forms import *
+
+BUTTON_LOGIN = 'login'
+BUTTON_REGISTER = 'register'
+
+def home(request):
+    if request.method == 'POST':
+        if BUTTON_LOGIN in request.POST:
+            return login(request)
+        elif BUTTON_REGISTER in request.POST:
+            return register(request)
+    login_form = LoginForm()
+    register_form = RegisterForm()
+    return render(request, 'authentication/index.html', {'login_form': login_form, 'register_form': register_form})
 
 def auth_login(request):
     if request.method == 'POST':
@@ -23,11 +33,12 @@ def auth_login(request):
         form = LoginForm()
         return render(request, 'file_manager/login.html', {'form': form})
 
+def register(request):
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect(to='file-manager-login')
+
 def auth_logout(request):
     logout(request)
     return redirect('/')
-
-def get_home(request):
-    if request.user.is_authenticated:
-        return render(request, 'file_manager/home.html')
-    return redirect('/login')
