@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseForbidden
 from authentication.forms import *
 
 BUTTON_LOGIN = 'login'
@@ -7,7 +9,7 @@ BUTTON_REGISTER = 'register'
 def home(request):
     if request.method == 'POST':
         if BUTTON_LOGIN in request.POST:
-            return login(request)
+            return auth_login(request)
         elif BUTTON_REGISTER in request.POST:
             return register(request)
     login_form = LoginForm()
@@ -27,7 +29,7 @@ def auth_login(request):
                 if not remember_me:
                     request.session.set_expiry(0)
                     request.session.modified = True
-                return redirect('/home')
+                return redirect('home')
         return HttpResponseForbidden()
     else:
         form = LoginForm()
@@ -37,8 +39,11 @@ def register(request):
     form = RegisterForm(request.POST)
     if form.is_valid():
         form.save()
-        return redirect(to='file-manager-login')
+        return redirect('home')
+    return redirect('home')
+
+    
 
 def auth_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect('home')
