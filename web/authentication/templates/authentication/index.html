@@ -26,8 +26,7 @@
     <title>Document</title>
 </head>
 <body>
-<input type="hidden" id="typeVar" name="typeVariable" value="{{ type_variable }}">
-<div class="container" id="container">
+<div class="container {% if type == 'register' %}right-panel-active{% endif %}" id="container">
     <div class="form-container sign-up-container">
         <form method="post">
             {% csrf_token %}
