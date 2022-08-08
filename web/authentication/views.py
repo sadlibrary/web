@@ -41,10 +41,14 @@ def auth_login(request):
 
 def register(request):
     form = RegisterForm(request.POST)
+    login_form = LoginForm()
+    register_form = RegisterForm()
     if form.is_valid():
         form.save()
-        return redirect('home')
-    return redirect('home')
+        return render(request, 'authentication/index.html',
+                      {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
+    return render(request, 'authentication/index.html',
+                  {'login_form': login_form, 'register_form': form, 'type': 'register'})
 
 
 def auth_logout(request):
