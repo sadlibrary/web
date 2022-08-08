@@ -18,7 +18,6 @@ def home(request):
     return render(request, 'authentication/index.html',
                   {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
 
-
 def auth_login(request):
     if request.method == 'POST':
         form = LoginForm(request.data)
@@ -36,7 +35,7 @@ def auth_login(request):
         return HttpResponseForbidden()
     else:
         form = LoginForm()
-        return render(request, 'file_manager/login.html', {'form': form})
+        return render(request, 'authentication/login.html', {'form': form})
 
 
 def register(request):
@@ -49,7 +48,6 @@ def register(request):
                       {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
     return render(request, 'authentication/index.html',
                   {'login_form': login_form, 'register_form': form, 'type': 'register'})
-
 
 def auth_logout(request):
     logout(request)
