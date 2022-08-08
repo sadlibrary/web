@@ -17,10 +17,10 @@
       crossorigin="anonymous"
     /> -->
     <link rel="stylesheet" href="{% static "authentication/style.css" %}"/>
-    <link 
-      rel="stylesheet" 
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
     <title>Document</title>
@@ -36,43 +36,51 @@
                 {{ register_form.first_name }}
                 {{ register_form.last_name }}
             </div>
+            <div class="flex-overwriter">
+                {{ register_form.first_name.errors }}
+                {{ register_form.last_name.errors }}
+            </div>
             {{ register_form.username }}
+            {{ register_form.username.errors }}
             {{ register_form.email }}
+            {{ register_form.email.errors }}
             {{ register_form.password1 }}
             {{ register_form.password2 }}
-            <div id="error-success-message">
-                {% comment %} <i class="fa fa-times-circle" style="display: none;"></i> {% endcomment %}
-                {% comment %} <i class="fa fa-check" style="display: none;"></i> {% endcomment %}
-                {% if register_form.errors %}
-                    <script>
-                        console.log("here1");
-                        try {
-                            message = document.getElementById("error-success-message");
-                            message.classList.add("error-message");
-                            message.classList.remove("success-message");
-                            //errLogo = document.getElementsByClassName("fa-times-circle")[0];
-                            //successLogo = document.getElementsByClassName("fa-check")[0];
-                            //errLogo.style.display = "inline";
-                            //successLogo.style.display = "none";
-                        } catch (e) {}
-                    </script>
-                    {% comment %} message goes here {% endcomment %}
-                {% else %}
-                    <script>
-                        console.log("here2");
-                        try {
-                            message = document.getElementById("error-success-message");
-                            message.classList.add("success-message");
-                            message.classList.remove("error-message");
-                            //errLogo = document.getElementsByClassName("fa-times-circle")[0];
-                            //successLogo = document.getElementsByClassName("fa-check")[0];
-                            //errLogo.style.display = "none";
-                            //successLogo.style.display = "inline";
-                        } catch (e) {}
-                    </script>
-                    {% comment %} message goes here {% endcomment %}
-                {% endif %}
-            </div>
+            {{ register_form.password1.errors }}
+            {{ register_form.password2.errors }}
+{#            <div id="error-success-message">#}
+{#                {% comment %} <i class="fa fa-times-circle" style="display: none;"></i> {% endcomment %}#}
+{#                {% comment %} <i class="fa fa-check" style="display: none;"></i> {% endcomment %}#}
+{#                {% if register_form.errors %}#}
+{#                    <script>#}
+{#                        console.log("here1");#}
+{#                        try {#}
+{#                            message = document.getElementById("error-success-message");#}
+{#                            message.classList.add("error-message");#}
+{#                            message.classList.remove("success-message");#}
+{#                            //errLogo = document.getElementsByClassName("fa-times-circle")[0];#}
+{#                            //successLogo = document.getElementsByClassName("fa-check")[0];#}
+{#                            //errLogo.style.display = "inline";#}
+{#                            //successLogo.style.display = "none";#}
+{#                        } catch (e) {}#}
+{#                    </script>#}
+{#                    {% comment %} message goes here {% endcomment %}#}
+{#                {% else %}#}
+{#                    <script>#}
+{#                        console.log("here2");#}
+{#                        try {#}
+{#                            message = document.getElementById("error-success-message");#}
+{#                            message.classList.add("success-message");#}
+{#                            message.classList.remove("error-message");#}
+{#                            //errLogo = document.getElementsByClassName("fa-times-circle")[0];#}
+{#                            //successLogo = document.getElementsByClassName("fa-check")[0];#}
+{#                            //errLogo.style.display = "none";#}
+{#                            //successLogo.style.display = "inline";#}
+{#                        } catch (e) {}#}
+{#                    </script>#}
+{#                    {% comment %} message goes here {% endcomment %}#}
+{#                {% endif %}#}
+{#            </div>#}
             <button type="submit" name="register" onclick="myFunction()">Sign Up</button>
         </form>
     </div>
@@ -89,6 +97,7 @@
                     </div>
                 {% else %}
                     {{ field }}
+                    {{ field.errors }}
                 {% endif %}
             {% endfor %}
 
