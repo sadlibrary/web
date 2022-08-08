@@ -6,6 +6,7 @@ from authentication.forms import *
 BUTTON_LOGIN = 'login'
 BUTTON_REGISTER = 'register'
 
+
 def home(request):
     if request.method == 'POST':
         if BUTTON_LOGIN in request.POST:
@@ -14,7 +15,9 @@ def home(request):
             return register(request)
     login_form = LoginForm()
     register_form = RegisterForm()
-    return render(request, 'authentication/index.html', {'login_form': login_form, 'register_form': register_form})
+    return render(request, 'authentication/index.html',
+                  {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
+
 
 def auth_login(request):
     if request.method == 'POST':
@@ -35,6 +38,7 @@ def auth_login(request):
         form = LoginForm()
         return render(request, 'file_manager/login.html', {'form': form})
 
+
 def register(request):
     form = RegisterForm(request.POST)
     if form.is_valid():
@@ -42,8 +46,10 @@ def register(request):
         return redirect('home')
     return redirect('home')
 
-    
 
 def auth_logout(request):
     logout(request)
-    return redirect('home')
+    login_form = LoginForm()
+    register_form = RegisterForm()
+    return render(request, 'authentication/index.html',
+                  {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
