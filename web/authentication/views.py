@@ -19,23 +19,19 @@ def home(request):
                   {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
 
 def auth_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.data)
-        if form.is_valid():
-            username = request.cleaned_data['username']
-            password = request.cleaned_data['password']
-            remember_me = request.cleaned_data['remember_me']
-            user = authenticate(request, username=username, password=password)
-            if user:
-                login(request, user)
-                if not remember_me:
-                    request.session.set_expiry(0)
-                    request.session.modified = True
-                return redirect('home')
-        return HttpResponseForbidden()
-    else:
-        form = LoginForm()
-        return render(request, 'authentication/login.html', {'form': form})
+    form = LoginForm(request.POST)
+    if form.is_valid():
+        username = request.cleaned_data['username']
+        password = request.cleaned_data['password']
+        remember_me = request.cleaned_data['remember_me']
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            if not remember_me:
+                request.session.set_expiry(0)
+                request.session.modified = True
+            return redirect('home')
+    return HttpResponseForbidden()
 
 
 def register(request):
