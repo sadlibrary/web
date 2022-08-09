@@ -28,7 +28,7 @@
 <body>
 <div class="container {% if type == 'register' %}right-panel-active{% endif %}" id="container">
     <div class="form-container sign-up-container">
-        <form method="post">
+        <form method="post" id="form-id">
             {% csrf_token %}
             <input type="hidden" name="action" value="register"/>
             <h1>Create Account</h1>
@@ -36,18 +36,29 @@
                 {{ register_form.first_name }}
                 {{ register_form.last_name }}
             </div>
-            <div class="flex-overwriter">
+            <span class="error-css">
                 {{ register_form.first_name.errors }}
+            </span>
+            <span class="error-css">
                 {{ register_form.last_name.errors }}
-            </div>
+            </span>
             {{ register_form.username }}
-            {{ register_form.username.errors }}
+            <span class="error-css">
+                {{ register_form.username.errors }}
+            </span>
             {{ register_form.email }}
-            {{ register_form.email.errors }}
+            <span class="error-css">
+                {{ register_form.email.errors }}
+            </span>
             {{ register_form.password1 }}
             {{ register_form.password2 }}
-            {{ register_form.password1.errors }}
-            {{ register_form.password2.errors }}
+            <span class="error-css">
+                {{ register_form.password1.errors }}
+            </span>
+            <span class="error-css">
+                {{ register_form.password2.errors }}
+            </span>
+            
 {#            <div id="error-success-message">#}
 {#                {% comment %} <i class="fa fa-times-circle" style="display: none;"></i> {% endcomment %}#}
 {#                {% comment %} <i class="fa fa-check" style="display: none;"></i> {% endcomment %}#}
