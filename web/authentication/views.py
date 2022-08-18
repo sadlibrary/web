@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse, HttpResponse
 from authentication.forms import *
 
 BUTTON_LOGIN = 'login'
@@ -19,11 +19,11 @@ def home(request):
                   {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
 
 def auth_login(request):
-    form = LoginForm(request.POST)
+    form = LoginForm(request, request.POST)
     if form.is_valid():
-        username = request.cleaned_data['username']
-        password = request.cleaned_data['password']
-        remember_me = request.cleaned_data['remember_me']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me')
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
@@ -31,7 +31,7 @@ def auth_login(request):
                 request.session.set_expiry(0)
                 request.session.modified = True
             return redirect('home')
-    return HttpResponseForbidden()
+    return JsonResponse(form.error_messages)
 
 
 def register(request):
