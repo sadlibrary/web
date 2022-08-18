@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu|Lora");
+
+:root,
+[theme-mode="light"] {
+  --light-grad: #5698b2fe;
+  --dark-grad: #463d9ffe;
+  --button-color: #1c73bb;
+  --back-color: #ffffff;
+  --background-color: #f6f5f7;
+  --shadow-1: rgba(0, 0, 0, 0.25);
+  --shadow-2: rgba(0, 0, 0, 0.22);
+  --input-color: #eeeeee;
+  --danger: #dc3545;
+  --success: #28a745;
+  --warning: #ffc107;
+  --text-color: #242424;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Lora, serif;
+  background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Ubuntu, serif;
+}
+
+.text-color {
+  color: var(--text-color);
+}
