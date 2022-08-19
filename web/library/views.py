@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+@login_required
+def check_download_permission(request, target_file):
+    if request.user in target_file.allowed_user:
+        return target_file
+    else:
+        return None
