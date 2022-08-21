@@ -10,6 +10,10 @@ BUTTON_REGISTER = 'register'
 def start_page(request):
     return render(request, 'home.html')
 
+def current_user(request):
+    cur_user = request.user
+    return JsonResponse({'username': cur_user.username})
+
 def home(request):
     if request.method == 'POST':
         if BUTTON_LOGIN in request.POST:
