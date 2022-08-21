@@ -20,5 +20,6 @@ import authentication
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
+    path('library/', include('library.urls')),
     path('', authentication.views.start_page)
 ]
