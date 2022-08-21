@@ -63,15 +63,36 @@ a[disabled] {
   background-image: linear-gradient(to left, #6441a5, #2a0845);
 }
 
-.item,
-.add-item {
+.download-hover {
+  display: none;
+}
+
+.item {
   height: 5rem;
+  display: inline-block;
 }
 
 .item:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 12px 0 rgba(0, 0, 0, 0.6);
+}
+
+.item:hover > .download-hover {
+  display: block;
+  transition: display 0.5s;
 }
 
 .add-item {
   border: var(--secondary) dashed 0.2rem;
+}
+
+.form-popup {
+  display: none;
+  position: relative;
+  bottom: 0;
+  right: 15px;
+  z-index: 5;
+}
+
+.input-group-text {
+  width: 27%;
 }
