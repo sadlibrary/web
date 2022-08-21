@@ -7,6 +7,9 @@ BUTTON_LOGIN = 'login'
 BUTTON_REGISTER = 'register'
 
 
+def start_page(request):
+    return render(request, 'home.html')
+
 def home(request):
     if request.method == 'POST':
         if BUTTON_LOGIN in request.POST:
