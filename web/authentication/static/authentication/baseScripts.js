@@ -25,42 +25,42 @@ disabled
 class="list-group list-group-flush border-bottom h-100 overflow-auto"
 >`;
 
-fetch(URL(djangoURL, baseDjangoURL), {
-  headers: {
-    Accept: "application/json",
-    "X-Requested-With": "XMLHttpRequest",
-  },
-}).then((response) => {
-  // return response.json();
-  response = [
-    {
-      name: "new",
-      description: "something",
-      main: true,
-    },
-  ];
-  for (x in response) {
-    asideInnerHtml += `<a
-    href="#"
-    class="list-group-item list-group-item-action active py-3 lh-tight"
-  >
-    <div
-      class="d-flex w-100 align-items-center justify-content-between"
-    >
-      <strong class="mb-1">${x.name}</strong>
-      <small>${x.main ? "Main" : "Created"}</small>
-    </div>
-    <div class="col-10 mb-1 small">
-      ${x.description}
-    </div>
-  </a>`;
-  }
-  asideInnerHtml += `</div>`;
-  asideLibraries.innerHTML = asideInnerHtml;
-});
-//   .then((data) => {
-//     //Perform actions with the response data from the view
-//   });
+// fetch(URL(djangoURL, baseDjangoURL), {
+//   headers: {
+//     Accept: "application/json",
+//     "X-Requested-With": "XMLHttpRequest",
+//   },
+// }).then((response) => {
+//   // return response.json();
+//   response = [
+//     {
+//       name: "new",
+//       description: "something",
+//       main: true,
+//     },
+//   ];
+//   for (x in response) {
+//     asideInnerHtml += `<a
+//     href="#"
+//     class="list-group-item list-group-item-action active py-3 lh-tight"
+//   >
+//     <div
+//       class="d-flex w-100 align-items-center justify-content-between"
+//     >
+//       <strong class="mb-1">${x.name}</strong>
+//       <small>${x.main ? "Main" : "Created"}</small>
+//     </div>
+//     <div class="col-10 mb-1 small">
+//       ${x.description}
+//     </div>
+//   </a>`;
+//   }
+//   asideInnerHtml += `</div>`;
+//   asideLibraries.innerHTML = asideInnerHtml;
+// });
+// //   .then((data) => {
+// //     //Perform actions with the response data from the view
+// //   });
 
 titleUpload.addEventListener("input", (evt) => {
   const val = titleUpload.value.trim();

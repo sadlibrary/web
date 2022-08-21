@@ -55,7 +55,7 @@ a[disabled] {
   line-height: 1.25;
 }
 
-#fileItems {
+.fileItems {
   margin: 1rem 5vw 0 30vw;
 }
 
@@ -95,4 +95,12 @@ a[disabled] {
 
 .input-group-text {
   width: 27%;
+}
+
+.attach-description {
+  display: none;
+}
+
+.attach-link:hover > .attach-description {
+  display: inline;
 }
