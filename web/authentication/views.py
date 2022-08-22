@@ -19,8 +19,11 @@ def home(request):
     return render(request, 'authentication/index.html',
                   {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
 
+
 def auth_login(request):
     form = LoginForm(request.POST)
+    for field in form:
+        print(field.name, field.errors, field.data)
     if form.is_valid():
         username = request.cleaned_data['username']
         password = request.cleaned_data['password']
@@ -46,6 +49,7 @@ def register(request):
     return render(request, 'authentication/index.html',
                   {'login_form': login_form, 'register_form': form, 'type': 'register'})
 
+
 def auth_logout(request):
     logout(request)
     login_form = LoginForm()
@@ -62,11 +66,12 @@ def edit_profile(request):
         user_form.save()
         return redirect('profile')
 
-    return render(request, 'users/profile.html', {'user_form': user_form})
+    return render(request, 'authentication/profile.html', {'user_form': user_form})
+
 
 @login_required
 def view_profile(request):
     if request.method == 'POST':
         pass
     else:
-        return render(request, 'users/profile.html', {'user': request.user})
+        return render(request, 'authentication/profile.html', {'user': request.user})
