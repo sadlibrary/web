@@ -1,8 +1,9 @@
 {% extends "authentication/defualt.html" %}
+{% block content %}
 <img src="authentication/profile.png" class="rounded" alt="profilephoto">
 <div class="row">
-    <input type="text" readonly value="{{ user.firstname }}">
-    <input type="text" readonly value="{{ user.lastname }}">
+    <input type="text" readonly value="{{ user.first_name }}">
+    <input type="text" readonly value="{{ user.last_name }}">
 </div>
 <div class="row">
     <input type="text" readonly value="{{ user.username }}">
@@ -10,5 +11,4 @@
 <div class="row">
     <input type="text" readonly value="{{ user.email }}">
 </div>
-{% block content %}
 {% endblock %}
