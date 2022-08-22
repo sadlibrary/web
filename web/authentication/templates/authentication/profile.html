@@ -1,6 +1,7 @@
 {% extends "authentication/defualt.html" %}
+{% load static %}
 {% block content %}
-<img src="authentication/profile.png" class="rounded" alt="profilephoto">
+<img src="{% static 'authentication/images/profile.png' %}" class="rounded" alt="profilephoto">
 <div class="row">
     <input type="text" readonly value="{{ user.first_name }}">
     <input type="text" readonly value="{{ user.last_name }}">
