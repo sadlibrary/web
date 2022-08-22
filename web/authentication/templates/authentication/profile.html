@@ -1,16 +1,21 @@
 {% extends "authentication/defualt.html" %}
 {% load static %}
 {% block content %}
-<img src="{% static 'authentication/images/profile.png' %}" class="rounded" alt="profilephoto">
-<div class="row m-5">
-        <div class="col-6"><input type="text" readonly value="{{ user.first_name }}"></div>
-
-        <div class="col-6"><input type="text" readonly value="{{ user.last_name }}"></div>
+    <img src="{% static 'authentication/images/profile.png' %}" class="rounded" alt="profilephoto">
+    <div class="row m-3 w-100">
+        <div class="col-sm"><label>firstname: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.first_name }}"></div>
     </div>
-    <div class="row m-5">
-        <input type="text" readonly value="{{ user.username }}">
+    <div class="row m-3 w-100">
+        <div class="col-sm"><label>lastname: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.last_name }}"></div>
     </div>
-    <div class="row m-5">
-        <input type="text" readonly value="{{ user.email }}">
+    <div class="row m-3 w-100">
+        <div class="col-sm"><label>username: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.username }}"></div>
+    </div>
+    <div class="row m-3 w-100">
+        <div class="col-sm"><label>email: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.email }}"></div>
     </div>
 {% endblock %}
