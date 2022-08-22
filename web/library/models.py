@@ -2,7 +2,7 @@ from django.db import models
 
 
 class LibraryTypes(models.Model):
-    type = models.CharField(max_length=256, unique=True)
+    name = models.CharField(max_length=256, unique=True)
     formats = models.CharField(max_length=1024, blank=True)
 
     accepted_attachments_ids = models.CharField(max_length=1024, blank=True)

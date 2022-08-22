@@ -7,5 +7,5 @@ class TypeForm(forms.ModelForm):
     accepted_attachments_ids = models.TextField()
     
     class Meta:
-        model = Library
+        model = LibraryTypes
         fields = ['name', 'formats', 'accepted_attachments_ids']
