@@ -2,14 +2,15 @@
 {% load static %}
 {% block content %}
 <img src="{% static 'authentication/images/profile.png' %}" class="rounded" alt="profilephoto">
-<div class="row">
-    <input type="text" readonly value="{{ user.first_name }}">
-    <input type="text" readonly value="{{ user.last_name }}">
-</div>
-<div class="row">
-    <input type="text" readonly value="{{ user.username }}">
-</div>
-<div class="row">
-    <input type="text" readonly value="{{ user.email }}">
-</div>
+<div class="row m-5">
+        <div class="col-6"><input type="text" readonly value="{{ user.first_name }}"></div>
+
+        <div class="col-6"><input type="text" readonly value="{{ user.last_name }}"></div>
+    </div>
+    <div class="row m-5">
+        <input type="text" readonly value="{{ user.username }}">
+    </div>
+    <div class="row m-5">
+        <input type="text" readonly value="{{ user.email }}">
+    </div>
 {% endblock %}
