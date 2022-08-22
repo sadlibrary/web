@@ -27,6 +27,7 @@ def home(request):
 
 def auth_login(request):
     form = LoginForm(request, request.POST)
+    login_form = LoginForm()
     if form.is_valid():
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -38,7 +39,8 @@ def auth_login(request):
                 request.session.set_expiry(0)
                 request.session.modified = True
             return redirect('home')
-    return JsonResponse(form.error_messages)
+    return render(request, 'authentication/index.html',
+                  {'login_form': login_form, 'register_form': form, 'type': 'login'})
 
 
 def register(request):
