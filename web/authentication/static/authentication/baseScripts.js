@@ -8,6 +8,16 @@ const progressBox = document.getElementById("progress-box");
 const cancelBox = document.getElementById("cancel-box");
 const cancelBtn = document.getElementById("cancel-btn");
 
+const formLibrary = document.getElementById("library-form");
+const nameLibrary = document.getElementById("library-name");
+const descriptionLibrary = document.getElementById("library-description");
+const iconLibrary = document.getElementById("library-icon");
+const submitLibrary = document.getElementById("submit-library");
+
+const progressBoxLibrary = document.getElementById("progress-box-library");
+const cancelBoxLibrary = document.getElementById("cancel-box-library");
+const cancelBtnLibrary = document.getElementById("cancel-btn-library");
+
 const csrf = document.getElementsByName("csrfmiddlewaretoken");
 
 librariesDjangoURL = "";
@@ -71,6 +81,75 @@ titleUpload.addEventListener("input", (evt) => {
     submitFile.disabled = true;
     fileUpload.disabled = true;
   }
+});
+
+nameLibrary.addEventListener("input", (evt) => {
+  const val = nameLibrary.value.trim();
+  if (val) {
+    submitLibrary.disabled = false;
+  } else {
+    submitLibrary.disabled = true;
+  }
+});
+
+let current_user = "";
+
+fetch("http://127.0.0.1:8000/auth/current_user/", {
+  method: "GET",
+  headers: {
+    Accept: "application/json",
+    "X-Requested-With": "XMLHttpRequest",
+  },
+})
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    current_user = data.username;
+    console.log(current_user);
+  });
+
+async function addLibrary(url = "", data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+submitLibrary.addEventListener("click", (evt) => {
+  evt.preventDefault();
+  const data = {
+    username: current_user,
+    name: nameLibrary.value,
+    description: descriptionLibrary.value,
+    icon: iconLibrary.value,
+    type: "created",
+    // csrfmiddlewaretoken: csrf[0].value,
+  };
+  addLibrary("http://127.0.0.1:8000/library/libraries/", data)
+    .then((response) => {
+      console.log(response);
+      if (response.status == "success") {
+        alert("Library added successfully");
+        window.location.reload();
+      } else {
+        alert("Error adding library");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 });
 
 fileUpload.addEventListener("change", () => {
