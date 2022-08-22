@@ -2,9 +2,9 @@
 
 :root,
 [theme-mode="light"] {
-  --dark-grad: #045f59;
-  --light-grad: #08b26e;
-  --button-color: #0d7d76;
+  --light-grad: #5698b2fe;
+  --dark-grad: #463d9ffe;
+  --button-color: #4e6ba9;
   --back-color: #ffffff;
   --background-color: #f6f5f7;
   --shadow-1: rgba(0, 0, 0, 0.25);

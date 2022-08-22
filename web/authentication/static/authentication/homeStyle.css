@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+:root,
+[theme-mode="light"] {
+  --light-grad: #5698b2fe;
+  --dark-grad: #463d9ffe;
+  --button-color: #1c73bb;
+  --back-color: #ffffff;
+  --background-color: #f6f5f7;
+  --shadow-1: rgba(0, 0, 0, 0.25);
+  --shadow-2: rgba(0, 0, 0, 0.22);
+  --input-color: #eeeeee;
+  --danger: #dc3545;
+  --success: #28a745;
+  --warning: #ffc107;
+  --text-color: #242424;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.text-color {
+  color: var(--text-color);
+}
+
+.wave {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: rotateY(180deg);
+}
+
+.home-text {
+  padding-top: 8rem !important;
+}
+
+.home-section {
+  background-image: linear-gradient(
+      to bottom left,
+      var(--light-grad),
+      var(--dark-grad)
+    ),
+    url("https://github.com/nonaghazizadeh/web-programming-hw2/blob/master/src/images/1856310.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 80vh;
+}
+.svg-path {
+  stroke: none;
+  fill: var(--background-color);
+}
+.home-btn {
+  text-decoration: none;
+  text-emphasis-style: none;
+  width: auto;
+  border-radius: 50px;
+  text-align: center;
+}
+
+.stack-container {
+  min-height: 25vw;
+}
+
+.stack-parent {
+  position: relative;
+  width: 23vw;
+  min-height: 23vw;
+}
+
+#stack-parent-left {
+  float: left;
+  margin: 0 2vw 0 0;
+}
+
+#stack-parent-right {
+  float: right;
+  margin: 0 0 0 2vw;
+}
+
+.stack-parent > img {
+  width: 20vw;
+  min-height: 20vw;
+}
