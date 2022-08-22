@@ -6,5 +6,6 @@ router = routers.DefaultRouter()
 router.register(r'libraries', views.LibraryViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('api', include(router.urls)),
+    path('', views.library_home),
 ]
