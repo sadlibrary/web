@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>library</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../../static/authentication/baseStyle.css" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/afa312817f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item ms-2">
+            <a
+              class="nav-link btn btn-primary text-light"
+              style="background-color: #1c73bb; width: 5rem"
+              href="#"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item ms-2">
+            <a
+              class="nav-link btn btn-primary text-light"
+              style="background-color: #1c73bb; width: 5rem"
+              href="#"
+              >Libraries</a
+            >
+          </li>
+          <li class="nav-item ms-2">
+            <a
+              class="nav-link btn btn-danger text-light"
+              style="background-color: #dc3545; width: 5rem"
+              href="#"
+              >Logout</a
+            >
+          </li>
+        </ul>
+        <a class="navbar-brand" href="#">
+          <img
+            src="../../static/authentication/images/navbar/profile-picture.svg"
+            alt="Profile"
+            width="50"
+            height="50"
+            style="
+              filter: invert(36%) sepia(99%) saturate(565%) hue-rotate(170deg)
+                brightness(89%) contrast(97%);
+            "
+          />
+        </a>
+      </div>
+    </nav>
+
+    <!-- libraries -->
+    <aside
+      class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white float-start"
+      style="width: 28vw; height: 91vh"
+    >
+      <div
+        class="d-flex flex-column align-items-stretch flex-shrink-0"
+        style="height: 86vh"
+        id="libraries-box"
+      >
+        <a
+          href="#"
+          class="d-flex align-items-center p-3 link-dark text-decoration-none border-bottom"
+          disabled
+        >
+          <span class="fs-5 fw-semibold">Libraries</span>
+        </a>
+        <div
+          class="list-group list-group-flush border-bottom h-100 overflow-auto"
+        >
+          <a
+            href="#"
+            class="list-group-item list-group-item-action active py-3 lh-tight"
+          >
+            <div
+              class="d-flex w-100 align-items-center justify-content-between"
+            >
+              <strong class="mb-1">Photo</strong>
+              <small>Main</small>
+            </div>
+            <div class="col-10 mb-1 small">
+              Library to upload and save all your photo format contents.
+            </div>
+          </a>
+          <a
+            href="#"
+            class="list-group-item list-group-item-action py-3 lh-tight"
+          >
+            <div
+              class="d-flex w-100 align-items-center justify-content-between"
+            >
+              <strong class="mb-1">Music</strong>
+              <small class="text-muted">Main</small>
+            </div>
+            <div class="col-10 mb-1 small">
+              Library to upload and save all your music format contents.
+            </div>
+          </a>
+          <a
+            href="#"
+            class="list-group-item list-group-item-action py-3 lh-tight"
+          >
+            <div
+              class="d-flex w-100 align-items-center justify-content-between"
+            >
+              <strong class="mb-1">Movie</strong>
+              <small class="text-muted">Main</small>
+            </div>
+            <div class="col-10 mb-1 small">
+              Library to upload and save all your movie format contents.
+            </div>
+          </a>
+
+          <a
+            href="#"
+            class="list-group-item list-group-item-action py-3 lh-tight"
+            aria-current="true"
+          >
+            <div
+              class="d-flex w-100 align-items-center justify-content-between"
+            >
+              <strong class="mb-1">Documents</strong>
+              <small class="text-muted">Main</small>
+            </div>
+            <div class="col-10 mb-1 small">
+              Library to upload and save all your document format contents.
+            </div>
+          </a>
+          <a
+            href="#"
+            class="list-group-item list-group-item-action py-3 lh-tight"
+          >
+            <div
+              class="d-flex w-100 align-items-center justify-content-between"
+            >
+              <strong class="mb-1">Clip</strong>
+              <small class="text-muted">Created</small>
+            </div>
+            <div class="col-10 mb-1 small">
+              I want to save my video clips in here!
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="dropdown d-flex justify-content-center" style="height: 5vh">
+        <a
+          href="#"
+          class="d-flex align-items-center text-secondary text-decoration-none dropdown-toggle fs-5"
+          id="dropdownLibraries"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <strong>Library Management</strong>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-dark text-small shadow"
+          aria-labelledby="dropdownLibraries"
+        >
+          <li><a class="dropdown-item fs-5" href="#">New Library...</a></li>
+          <li><a class="dropdown-item fs-5" href="#">Delete A Library</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- files -->
+    <main>
+      <div id="accordion" class="fileItems p-3 border text-light overflow-auto">
+        <div class="card">
+          <!-- <div class="card-header"> -->
+          <a
+            class="card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
+            data-bs-toggle="collapse"
+            href="#collapse1"
+          >
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <i class="fa-solid fa-file-image fs-2 float-start"></i>
+              <div class="item-contents ms-4">
+                <h3 class="m-0">Title</h3>
+                <p class="small m-0">description</p>
+              </div>
+            </div>
+            <div class="download-hover float-end">
+              <span class="fs-2">|</span>
+              <i class="fa-solid fa-download fs-3"></i>
+            </div>
+          </a>
+          <div id="collapse1" class="collapse show" data-bs-parent="#accordion">
+            <div class="card-body text-dark">
+              <div class="d-flex flex-row justify-content-center">
+                <a href="#" class="text-decoration-none link-dark">
+                  <i class="fa-solid fa-file-arrow-down fs-2 me-3"></i>
+                </a>
+                <i class="fa-solid fa-grip-lines-vertical fs-2 me-3"></i>
+                <a
+                  href="#"
+                  class="attach-link text-decoration-none link-dark d-flex align-items-center me-2"
+                >
+                  <i class="fa-solid fa-paperclip fs-2 me-1"></i>
+                  <span class="attach-description">attach file 1</span>
+                </a>
+                <a
+                  href="#"
+                  class="attach-link text-decoration-none link-dark d-flex align-items-center me-2"
+                >
+                  <i class="fa-solid fa-paperclip fs-2 me-1"></i>
+                  <span class="attach-description">attach file 2</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- <div class="card-header"> -->
+          <a
+            class="collapsed card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
+            data-bs-toggle="collapse"
+            href="#collapse2"
+          >
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <i class="fa-solid fa-file-image fs-2 float-start"></i>
+              <div class="item-contents ms-4">
+                <h3 class="m-0">Title</h3>
+                <p class="small m-0">description</p>
+              </div>
+            </div>
+            <div class="download-hover float-end">
+              <span class="fs-2">|</span>
+              <i class="fa-solid fa-download fs-3"></i>
+            </div>
+          </a>
+          <div id="collapse2" class="collapse" data-bs-parent="#accordion">
+            <div class="card-body text-dark"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <!-- <div class="card-header"> -->
+          <a
+            class="collapsed card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
+            data-bs-toggle="collapse"
+            href="#collapse3"
+          >
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <i class="fa-solid fa-file-image fs-2 float-start"></i>
+              <div class="item-contents ms-4">
+                <h3 class="m-0">Title</h3>
+                <p class="small m-0">description</p>
+              </div>
+            </div>
+            <div class="download-hover float-end">
+              <span class="fs-2">|</span>
+              <i class="fa-solid fa-download fs-3"></i>
+            </div>
+          </a>
+          <div id="collapse3" class="collapse" data-bs-parent="#accordion">
+            <div class="card-body"></div>
+          </div>
+        </div>
+
+        <!-- Add File -->
+        <button
+          type="button"
+          id="modalButton"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+          class="add-item p-2 w-100 mx-auto fs-3 d-flex flex-row align-items-center justify-content-center text-secondary text-decoration-none"
+        >
+          + Add New File
+        </button>
+
+        <div class="modal text-dark" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header text-light bg-costume">
+                <h4 class="modal-title">Add New File...</h4>
+                <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form
+                  id="upload-form"
+                  action=""
+                  class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+                >
+                  <div class="input-group my-3 w-100">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Title</span
+                    >
+                    <input
+                      type="text"
+                      id="upload-title"
+                      class="form-control"
+                      placeholder="Title"
+                      aria-label="Title"
+                      aria-describedby="basic-addon1"
+                      required
+                    />
+                  </div>
+
+                  <div class="input-group mb-3 w-100">
+                    <span class="input-group-text">Description</span>
+                    <textarea
+                      class="form-control"
+                      aria-label="Description"
+                      id="upload-description"
+                    ></textarea>
+                  </div>
+
+                  <div class="input-group mb-3 w-100">
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="upload-file"
+                      required
+                      disabled
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      type="submit"
+                      name=""
+                      id="submit-file"
+                      class="btn btn-primary me-1"
+                      value="Submit"
+                      style="width: 7rem"
+                      disabled
+                    />
+                  </div>
+                </form>
+                <div id="progress-box" class="d-none">progress</div>
+                <div id="cancel-box" class="d-none">
+                  <button id="cancel-btn" class="btn btn-danger">cancel</button>
+                </div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../static/authentication/baseScripts.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

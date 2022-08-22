@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse, HttpResponse
 from authentication.forms import *
 from django.contrib.auth.decorators import login_required
 
 BUTTON_LOGIN = 'login'
 BUTTON_REGISTER = 'register'
 
+
+def start_page(request):
+    return render(request, 'home.html')
+
+def current_user(request):
+    cur_user = request.user
+    return JsonResponse({'username': cur_user.username})
 
 def home(request):
     if request.method == 'POST':
@@ -21,13 +28,11 @@ def home(request):
 
 
 def auth_login(request):
-    form = LoginForm(request.POST)
-    for field in form:
-        print(field.name, field.errors, field.data)
+    form = LoginForm(request, request.POST)
     if form.is_valid():
-        username = request.cleaned_data['username']
-        password = request.cleaned_data['password']
-        remember_me = request.cleaned_data['remember_me']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me')
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
@@ -35,7 +40,7 @@ def auth_login(request):
                 request.session.set_expiry(0)
                 request.session.modified = True
             return redirect('home')
-    return HttpResponseForbidden()
+    return JsonResponse(form.error_messages)
 
 
 def register(request):
