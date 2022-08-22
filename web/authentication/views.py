@@ -38,7 +38,7 @@ def auth_login(request):
             if not remember_me:
                 request.session.set_expiry(0)
                 request.session.modified = True
-            return redirect('home')
+            return redirect('/library')
     return render(request, 'authentication/index.html',
                   {'login_form': login_form, 'register_form': form, 'type': 'login'})
 

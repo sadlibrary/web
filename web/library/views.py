@@ -8,3 +8,7 @@ class LibraryViewSet(viewsets.ModelViewSet):
     queryset = Library.objects.all()
     serializer_class = LibrarySerializer
     permission_classes = [permissions.IsAuthenticated]
+
+@login_required
+def library_home(request):
+    return render(request, 'base.html')
