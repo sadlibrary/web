@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu|Lora");
+
+:root,
+[theme-mode="light"] {
+  --light-grad: #5698b2fe;
+  --dark-grad: #463d9ffe;
+  --button-color: #1c73bb;
+  --back-color: #ffffff;
+  --background-color: #f6f5f7;
+  --shadow-1: rgba(0, 0, 0, 0.25);
+  --shadow-2: rgba(0, 0, 0, 0.22);
+  --input-color: #eeeeee;
+  --danger: #dc3545;
+  --success: #28a745;
+  --warning: #ffc107;
+  --secondary: #424242;
+  --text-color: #242424;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: Lora, serif;
+  background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.fs-5,
+.fs-3 {
+  font-family: Ubuntu, serif;
+}
+
+a[disabled] {
+  pointer-events: none;
+}
+
+.nav-bg-costume {
+  background-color: var(--shadow-2);
+}
+
+.text-color {
+  color: var(--text-color);
+}
+
+.lh-tight {
+  line-height: 1.25;
+}
+
+.fileItems {
+  margin: 1rem 5vw 0 30vw;
+}
+
+.bg-costume {
+  background-image: linear-gradient(to left, #6441a5, #2a0845);
+}
+
+.download-hover {
+  display: none;
+}
+
+.item {
+  height: 5rem;
+  display: inline-block;
+}
+
+.item:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 12px 0 rgba(0, 0, 0, 0.6);
+}
+
+.item:hover > .download-hover {
+  display: block;
+  transition: display 0.5s;
+}
+
+.add-item {
+  border: var(--secondary) dashed 0.2rem;
+}
+
+.form-popup {
+  display: none;
+  position: relative;
+  bottom: 0;
+  right: 15px;
+  z-index: 5;
+}
+
+.input-group-text {
+  width: 27%;
+}
+
+.attach-description {
+  display: none;
+}
+
+.attach-link:hover > .attach-description {
+  display: inline;
+}
