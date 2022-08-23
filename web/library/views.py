@@ -52,6 +52,5 @@ def get_user_libraries(request):
 
 @login_required
 def delete_library(request):
-    print(request.POST['library_to_delete'])
     Library.objects.all().filter(name=request.POST['library_to_delete']).delete()
     return redirect('/library')
