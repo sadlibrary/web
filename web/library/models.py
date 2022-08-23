@@ -12,7 +12,7 @@ class Library(models.Model):
     owner = models.ForeignKey(
         'auth.User', related_name='libraries', on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, unique=True)
     description = models.TextField()
     library_type = models.ForeignKey(LibraryTypes, on_delete=models.RESTRICT)
 
