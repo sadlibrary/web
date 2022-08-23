@@ -7,6 +7,9 @@ class LibraryTypes(models.Model):
 
     accepted_attachments_ids = models.CharField(max_length=1024, blank=True)
 
+    def __str__(self):
+        return self.name + ' (' + self.formats + ')'
+
 
 class Library(models.Model):
     owner = models.ForeignKey(
