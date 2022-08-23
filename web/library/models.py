@@ -14,8 +14,7 @@ class Library(models.Model):
 
     name = models.CharField(max_length=256)
     description = models.TextField()
-    # icon = models.ImageField(upload_to='library/icons/')
-    type = models.ForeignKey(LibraryTypes, on_delete=models.RESTRICT)
+    library_type = models.ForeignKey(LibraryTypes, on_delete=models.RESTRICT)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

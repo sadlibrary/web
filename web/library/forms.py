@@ -3,10 +3,12 @@ from library.models import *
 
 
 class TypeForm(forms.ModelForm):
-    name = models.CharField(max_length=256)
-    formats = models.TextField()
-    accepted_attachments_ids = models.TextField()
-
     class Meta:
         model = LibraryTypes
         fields = ['name', 'formats', 'accepted_attachments_ids']
+
+
+class LibraryForm(forms.ModelForm):
+    class Meta:
+        model = Library
+        fields = ['name', 'description', 'library_type']

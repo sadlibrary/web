@@ -223,7 +223,7 @@
           </div>
 
           <!-- Modal body -->
-          <div class="modal-body">
+          <!-- <div class="modal-body">
             <form
               id="library-form"
               action=""
@@ -274,6 +274,13 @@
                 cancel
               </button>
             </div>
+          </div> -->
+
+          <div class="modal-body">
+            <form action="/library/add-library" method="post">
+              {% csrf_token %} {{ library_form }}
+              <input type="submit" value="Submit" />
+            </form>
           </div>
 
           <!-- Modal footer -->
@@ -305,7 +312,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/your-name/" method="post">
+            <form action="/library/add-type" method="post">
               {% csrf_token %} {{ type_form }}
               <input type="submit" value="Submit" />
             </form>
