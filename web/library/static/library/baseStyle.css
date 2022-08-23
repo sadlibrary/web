@@ -6,6 +6,7 @@
   --light-grad: #5698b2fe;
   --dark-grad: #463d9ffe;
   --button-color: #1c73bb;
+  --active: #73a2e7;
   --back-color: #ffffff;
   --background-color: #f6f5f7;
   --shadow-1: rgba(0, 0, 0, 0.25);
@@ -53,6 +54,10 @@ a[disabled] {
 
 .lh-tight {
   line-height: 1.25;
+}
+
+.active {
+  background-color: var(--active) !important;
 }
 
 .fileItems {

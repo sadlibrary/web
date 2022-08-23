@@ -92,78 +92,21 @@
         <div
           class="list-group list-group-flush border-bottom h-100 overflow-auto"
         >
-          <a
-            href="#"
-            class="list-group-item list-group-item-action active py-3 lh-tight"
-          >
-            <div
-              class="d-flex w-100 align-items-center justify-content-between"
-            >
-              <strong class="mb-1">Photo</strong>
-              <small>Main</small>
-            </div>
-            <div class="col-10 mb-1 small">
-              Library to upload and save all your photo format contents.
-            </div>
-          </a>
-          <a
-            href="#"
+          {% for library in user_libraries %}
+          <button
+            type="button"
+            onclick="document.getElementById('library-{{ library.id }}').classList.add('active')"
             class="list-group-item list-group-item-action py-3 lh-tight"
           >
             <div
               class="d-flex w-100 align-items-center justify-content-between"
             >
-              <strong class="mb-1">Music</strong>
-              <small class="text-muted">Main</small>
+              <strong class="mb-1">{{ library.name }}</strong>
+              <small>{{ library.library_type.name }}</small>
             </div>
-            <div class="col-10 mb-1 small">
-              Library to upload and save all your music format contents.
-            </div>
-          </a>
-          <a
-            href="#"
-            class="list-group-item list-group-item-action py-3 lh-tight"
-          >
-            <div
-              class="d-flex w-100 align-items-center justify-content-between"
-            >
-              <strong class="mb-1">Movie</strong>
-              <small class="text-muted">Main</small>
-            </div>
-            <div class="col-10 mb-1 small">
-              Library to upload and save all your movie format contents.
-            </div>
-          </a>
-
-          <a
-            href="#"
-            class="list-group-item list-group-item-action py-3 lh-tight"
-            aria-current="true"
-          >
-            <div
-              class="d-flex w-100 align-items-center justify-content-between"
-            >
-              <strong class="mb-1">Documents</strong>
-              <small class="text-muted">Main</small>
-            </div>
-            <div class="col-10 mb-1 small">
-              Library to upload and save all your document format contents.
-            </div>
-          </a>
-          <a
-            href="#"
-            class="list-group-item list-group-item-action py-3 lh-tight"
-          >
-            <div
-              class="d-flex w-100 align-items-center justify-content-between"
-            >
-              <strong class="mb-1">Clip</strong>
-              <small class="text-muted">Created</small>
-            </div>
-            <div class="col-10 mb-1 small">
-              I want to save my video clips in here!
-            </div>
-          </a>
+            <div class="col-10 mb-1 small">{{ library.description }}</div>
+          </button>
+          {% endfor %}
         </div>
       </div>
       <div class="dropdown d-flex justify-content-center" style="height: 5vh">
@@ -201,7 +144,12 @@
             </button>
           </li>
           <li>
-            <button class="dropdown-item fs-5" type="button">
+            <button
+              class="dropdown-item fs-5"
+              data-bs-toggle="modal"
+              data-bs-target="#myDeleteModal"
+              type="button"
+            >
               Delete A Library
             </button>
           </li>
@@ -331,6 +279,49 @@
         </div>
       </div>
     </div>
+
+    <div class="modal text-dark" id="myDeleteModal" myModal>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header text-light bg-danger">
+            <h4 class="modal-title">Delete Library</h4>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form action="/library/delete-library" method="post">
+              {% csrf_token %}
+              
+                <select class="form-control" name="library_to_delete">
+                  {% for library in user_libraries %}
+                  <option>{{ library.name }}</option>
+                  {% endfor %}
+                </select>
+              
+              <input type="submit" value="Delete" />
+            </form>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- files -->
     <main>
