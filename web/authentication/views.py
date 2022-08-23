@@ -11,9 +11,11 @@ BUTTON_REGISTER = 'register'
 def start_page(request):
     return render(request, 'home.html')
 
+
 def current_user(request):
     cur_user = request.user
     return JsonResponse({'username': cur_user.username})
+
 
 def home(request):
     if request.method == 'POST':
@@ -67,18 +69,19 @@ def auth_logout(request):
 
 @login_required
 def edit_profile(request):
-    user_form = EditUserForm(request.POST, instance=request.user)
+    if request.method == "POST":
+        user_form = EditUserForm(request.POST, instance=request.user)
 
-    if user_form.is_valid():
-        user_form.save()
-        return redirect('profile')
+        if user_form.is_valid():
+            user_form.save()
+            return render(request, 'authentication/profile.html', {'user': request.user})
 
-    return render(request, 'authentication/profile.html', {'user_form': user_form})
+    elif request.method == "GET":
+        user_form = EditUserForm(instance=request.user)
+
+    return render(request, 'authentication/edit_profile.html', {'user_form': user_form})
 
 
 @login_required
 def view_profile(request):
-    if request.method == 'POST':
-        pass
-    else:
-        return render(request, 'authentication/profile.html', {'user': request.user})
+    return render(request, 'authentication/profile.html', {'user': request.user})

@@ -19,6 +19,10 @@
         <div class="col-sm"><input type="text" readonly value="{{ user.email }}"></div>
     </div>
     <div class="row">
-    <button type="submit" class="btn bmt-3 text-light mt-3" style="border-radius: 5px;background-color: #1c73bb;">Edit</button>
+        <a href="{% url 'authentication:edit_profile' %}">
+            <button type="submit" class="btn bmt-3 text-light mt-3"
+                    style="border-radius: 5px;background-color: #1c73bb;">Edit
+            </button>
+        </a>
     </div>
 {% endblock %}

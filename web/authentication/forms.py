@@ -75,10 +75,32 @@ class RegisterForm(UserCreationForm):
 
 
 class EditUserForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=100, required=True)
-    last_name = forms.CharField(max_length=100, required=True)
-    username = forms.CharField(max_length=100, required=True)
-    email = forms.EmailField(required=True)
+    first_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "First Name"}
+        ))
+
+    last_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Last Name"}
+        ))
+
+    username = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username"}
+        ))
+
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email"}
+        ))
     
     class Meta:
         model = User
