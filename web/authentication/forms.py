@@ -72,3 +72,36 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+
+
+class EditUserForm(forms.ModelForm):
+    first_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "First Name"}
+        ))
+
+    last_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Last Name"}
+        ))
+
+    username = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Username"}
+        ))
+
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email"}
+        ))
+    
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email']

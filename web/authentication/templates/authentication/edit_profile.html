@@ -1,0 +1,41 @@
+{% extends "authentication/defualt.html" %}
+{% load static %}
+{% block content %}
+    <img src="{% static 'authentication/images/4.jpg' %}" class="rounded-circle w-50 m-3" alt="profilephoto">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row m-2 w-100">
+            <div class="col-sm"><label>firstname: </label></div>
+            <div class="col-sm">{{ user_form.first_name }}</div>
+            <span style="color: #dc3545;">
+                {{ user_form.first_name.errors }}
+            </span>
+        </div>
+        <div class="row m-2 w-100">
+            <div class="col-sm"><label>lastname: </label></div>
+            <div class="col-sm">{{ user_form.last_name }}</div>
+            <span style="color: #dc3545;">
+                {{ user_form.last_name.errors }}
+            </span>
+        </div>
+        <div class="row m-2 w-100">
+            <div class="col-sm"><label>username: </label></div>
+            <div class="col-sm">{{ user_form.username }}</div>
+            <span style="color: #dc3545;">
+                {{ user_form.username.errors }}
+            </span>
+        </div>
+        <div class="row m-2 w-100">
+            <div class="col-sm"><label>email: </label></div>
+            <div class="col-sm">{{ user_form.email }}</div>
+            <span style="color: #dc3545;">
+                {{ user_form.email.errors }}
+            </span>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn bmt-3 text-light mt-3"
+                    style="border-radius: 5px;background-color: #1c73bb;">Save
+            </button>
+        </div>
+    </form>
+{% endblock %}

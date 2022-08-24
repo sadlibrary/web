@@ -1,0 +1,28 @@
+{% extends "authentication/defualt.html" %}
+{% load static %}
+{% block content %}
+    <img src="{% static 'authentication/images/4.jpg' %}" class="rounded-circle w-50 m-3" alt="profilephoto">
+    <div class="row m-2 w-100">
+        <div class="col-sm"><label>firstname: </label></div>
+        <div class="col-sm"><input class="radix-1" type="text" readonly value="{{ user.first_name }}"></div>
+    </div>
+    <div class="row m-2 w-100">
+        <div class="col-sm"><label>lastname: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.last_name }}"></div>
+    </div>
+    <div class="row m-2 w-100">
+        <div class="col-sm"><label>username: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.username }}"></div>
+    </div>
+    <div class="row m-2 w-100">
+        <div class="col-sm"><label>email: </label></div>
+        <div class="col-sm"><input type="text" readonly value="{{ user.email }}"></div>
+    </div>
+    <div class="row">
+        <a href="{% url 'authentication:edit_profile' %}">
+            <button type="submit" class="btn bmt-3 text-light mt-3"
+                    style="border-radius: 5px;background-color: #1c73bb;">Edit
+            </button>
+        </a>
+    </div>
+{% endblock %}
