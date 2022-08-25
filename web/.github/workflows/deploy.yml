@@ -1,0 +1,25 @@
+name: Deploy to production server
+
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST_ADDRESS }}
+          username: ${{ secrets.HOST_USERNAME }}
+          port: ${{ secrets.HOST_SSH_PORT }}
+          key: ${{ secrets.HOST_SSH_KEY }}
+          script: |
+            cd ${{ secrets.PRODUCTION_TARGET_PATH }}
+            git checkout -B main
+            git fetch --all
+            git reset --hard origin/main
+            docker compose -p sadlibrary down || echo "docker compose down failed with error $?!"
+            docker compose -p sadlibrary -f docker/docker-compose.yml pull
+            docker compose -p sadlibrary -f docker/docker-compose.yml up -d
