@@ -73,6 +73,74 @@ titleUpload.addEventListener("input", (evt) => {
   }
 });
 
+nameLibrary.addEventListener("input", (evt) => {
+  const val = nameLibrary.value.trim();
+  if (val) {
+    submitLibrary.disabled = false;
+  } else {
+    submitLibrary.disabled = true;
+  }
+});
+
+let current_user = "";
+
+fetch("http://127.0.0.1:8000/auth/current_user/", {
+  method: "GET",
+  headers: {
+    Accept: "application/json",
+    "X-Requested-With": "XMLHttpRequest",
+  },
+})
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    current_user = data.username;
+    console.log(current_user);
+  });
+
+async function addLibrary(url = "", data = {}) {
+  console.log(data);
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+submitLibrary.addEventListener("click", (evt) => {
+  const data = {
+    owner: current_user,
+    name: nameLibrary.value,
+    description: descriptionLibrary.value,
+    type: "created",
+  };
+  console.log(data);
+  addLibrary("http://127.0.0.1:8000/library/libraries/", data)
+    .then((response) => {
+      console.log(response);
+      if (response.status == "success") {
+        alert("Library added successfully");
+        window.location.reload();
+      } else {
+        alert("Error adding library");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+});
+
 fileUpload.addEventListener("change", () => {
   progressBox.classList.remove("d-none");
   cancelBox.classList.remove("d-none");

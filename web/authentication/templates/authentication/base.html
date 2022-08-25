@@ -186,6 +186,87 @@
       </div>
     </aside>
 
+    <div class="modal text-dark" id="myLibraryModal" myModal>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header text-light bg-primary">
+            <h4 class="modal-title">Add New Library...</h4>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form
+              id="library-form"
+              action=""
+              class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+            >
+              <div class="input-group my-3 w-100">
+                <span class="input-group-text" id="basic-addon11">Name</span>
+                <input
+                  type="text"
+                  id="library-name"
+                  class="form-control"
+                  placeholder="Name"
+                  aria-label="Name"
+                  aria-describedby="basic-addon11"
+                  required
+                />
+              </div>
+
+              <div class="input-group mb-3 w-100">
+                <span class="input-group-text">Description</span>
+                <textarea
+                  class="form-control"
+                  aria-label="Description"
+                  id="library-description"
+                ></textarea>
+              </div>
+
+              <div class="input-group mb-3 w-100">
+                <input type="file" class="form-control" id="library-icon" />
+                <label class="input-group-text">Icon</label>
+              </div>
+
+              <div>
+                <input
+                  type="button"
+                  name=""
+                  id="submit-library"
+                  class="btn btn-primary me-1"
+                  value="Submit"
+                  style="width: 7rem"
+                  disabled
+                />
+              </div>
+            </form>
+            <div id="progress-box-library" class="d-none">progress</div>
+            <div id="cancel-box-library" class="d-none">
+              <button id="cancel-btn-library" class="btn btn-danger">
+                cancel
+              </button>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- files -->
     <main>
       <div id="accordion" class="fileItems p-3 border text-light overflow-auto">

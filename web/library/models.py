@@ -7,14 +7,17 @@ class LibraryTypes(models.Model):
 
     accepted_attachments_ids = models.CharField(max_length=1024, blank=True)
 
+    def __str__(self):
+        return self.name + ' (' + self.formats + ')'
+
 
 class Library(models.Model):
-    owner = models.ForeignKey('auth.User', related_name='libraries', on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        'auth.User', related_name='libraries', on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, unique=True)
     description = models.TextField()
-    icon = models.ImageField(upload_to='library/icons/')
-    type = models.ForeignKey(LibraryTypes, on_delete=models.RESTRICT)
+    library_type = models.ForeignKey(LibraryTypes, on_delete=models.RESTRICT)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -24,7 +27,8 @@ class Library(models.Model):
 
 
 class LibraryFile(models.Model):
-    library = models.ForeignKey(Library, related_name='files', on_delete=models.CASCADE)
+    library = models.ForeignKey(
+        Library, related_name='files', on_delete=models.CASCADE)
     file = models.FileField(upload_to='library/files/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -34,7 +38,8 @@ class LibraryFile(models.Model):
 
 
 class FileAttachment(models.Model):
-    file = models.ForeignKey(LibraryFile, related_name='attachments', on_delete=models.CASCADE)
+    file = models.ForeignKey(
+        LibraryFile, related_name='attachments', on_delete=models.CASCADE)
     attachment = models.FileField(upload_to='library/attachments/')
 
     created_at = models.DateTimeField(auto_now_add=True)
