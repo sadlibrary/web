@@ -61,10 +61,7 @@ def register(request):
 
 def auth_logout(request):
     logout(request)
-    login_form = LoginForm()
-    register_form = RegisterForm()
-    return render(request, 'authentication/index.html',
-                  {'login_form': login_form, 'register_form': register_form, 'type': 'login'})
+    return redirect('/')
 
 
 @login_required

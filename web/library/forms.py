@@ -61,3 +61,22 @@ class LibraryForm(forms.ModelForm):
     class Meta:
         model = Library
         fields = ['name', 'description', 'library_type']
+
+
+class FileForm(forms.ModelForm):
+    file = forms.FileField()
+    description = forms.Textarea()
+    attachments = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True})
+    )
+
+    class Meta:
+        model = LibraryFile
+        fields = ['file', 'description']
+
+class ActiveLibraryForm(forms.Form):
+    name = forms.CharField(max_length=256, 
+    widget=forms.TextInput(
+        attrs={
+            'class': 'form-control', 
+            'id': 'add-file-current-library-input'}))
