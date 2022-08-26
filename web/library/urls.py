@@ -12,4 +12,5 @@ urlpatterns = [
     path('delete-library', views.delete_library),
     path('', views.library_home),
     path('<int:library_id>', views.upload_file),
+    path('<int:file_id>', views.upload_file),
 ]

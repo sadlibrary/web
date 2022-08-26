@@ -71,4 +71,15 @@ class LibraryFileForm(forms.ModelForm):
 
     class Meta:
         model = LibraryFile
-        fields = ['file', ]
+        fields = ['file']
+
+
+class FileAttachmentForm(forms.ModelForm):
+    attachment = forms.FileField(
+        widget=forms.FileInput(
+            attrs={'class': 'form-control-file', 'id': 'attachment'})
+    )
+
+    class Meta:
+        model = FileAttachment
+        fields = ['attachment']
