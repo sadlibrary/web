@@ -30,6 +30,7 @@ class LibraryFile(models.Model):
     library = models.ForeignKey(
         Library, related_name='files', on_delete=models.CASCADE)
     file = models.FileField(upload_to='library/files/')
+    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

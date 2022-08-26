@@ -32,14 +32,14 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <div class="container-fluid">
         <ul class="navbar-nav">
-          <li class="nav-item ms-2">
+          {% comment %} <li class="nav-item ms-2">
             <a
               class="nav-link btn btn-primary text-light"
               style="background-color: #1c73bb; width: 5rem"
               href="#"
               >Home</a
             >
-          </li>
+          </li> {% endcomment %}
           <li class="nav-item ms-2">
             <a
               class="nav-link btn btn-primary text-light"
@@ -52,7 +52,7 @@
             <a
               class="nav-link btn btn-danger text-light"
               style="background-color: #dc3545; width: 5rem"
-              href="#"
+              href="{% url 'authentication:logout' %}"
               >Logout</a
             >
           </li>
@@ -100,7 +100,7 @@
             <div
               class="d-flex w-100 align-items-center justify-content-between"
             >
-              <strong class="mb-1">{{ library.name }}</strong>
+              <strong class="library-name-text mb-1">{{ library.name }}</strong>
               <small>{{ library.library_type.name }}</small>
             </div>
             <div class="col-10 mb-1 small">{{ library.description }}</div>
@@ -155,6 +155,14 @@
         </ul>
       </div>
     </aside>
+
+    <div class="d-none">
+      <form id="current-library-form" action="/library/show-library" method="post">
+        {% csrf_token %}
+        {{ active_library }}
+        <input id="current-library-button" class="btn" type="submit">
+      </form>
+    </div>
 
     <div class="modal text-dark" id="myLibraryModal" myModal>
       <div class="modal-dialog">
@@ -241,6 +249,9 @@
                 <span class="input-group-text">Attachments</span>
                 {{ type_form.accepted_attachments_ids }}
               </div>
+              <div class="mb-3">
+                <small class="text-secondary">Use comma to seperate extensions.</small>
+              </div>
               <input type="submit" value="Submit" class="btn btn-dark me-1" style="width: 7rem"/>
             </form>
           </div>
@@ -309,8 +320,8 @@
     <!-- files -->
     <main>
       <div id="accordion" class="fileItems p-3 border text-light overflow-auto">
+        {% for file in library_files %}
         <div class="card">
-          <!-- <div class="card-header"> -->
           <a
             class="card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
             data-bs-toggle="collapse"
@@ -321,8 +332,8 @@
             >
               <i class="fa-solid fa-file-image fs-2 float-start"></i>
               <div class="item-contents ms-4">
-                <h3 class="m-0">Title</h3>
-                <p class="small m-0">description</p>
+                <h3 class="m-0">{{ file.file.name }}</h3>
+                <p class="small m-0">{{ file.description }}</p>
               </div>
             </div>
             <div class="download-hover float-end">
@@ -355,9 +366,9 @@
             </div>
           </div>
         </div>
+        {% endfor %}
 
-        <div class="card">
-          <!-- <div class="card-header"> -->
+        <!-- <div class="card">
           <a
             class="collapsed card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
             data-bs-toggle="collapse"
@@ -383,7 +394,6 @@
         </div>
 
         <div class="card">
-          <!-- <div class="card-header"> -->
           <a
             class="collapsed card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
             data-bs-toggle="collapse"
@@ -406,12 +416,12 @@
           <div id="collapse3" class="collapse" data-bs-parent="#accordion">
             <div class="card-body"></div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Add File -->
         <button
           type="button"
-          id="modalButton"
+          id="add-file-modal-button"
           data-bs-toggle="modal"
           data-bs-target="#myModal"
           class="add-item p-2 w-100 mx-auto fs-3 d-flex flex-row align-items-center justify-content-center text-secondary text-decoration-none"
@@ -436,9 +446,15 @@
               <div class="modal-body">
                 <form
                   id="upload-form"
-                  action=""
+                  action="/library/add-file"
+                  method="post"
                   class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+                  enctype="multipart/form-data"
                 >
+                  <!-- <div class="input-group my-3 w-100">
+                    <input type="text" value="" id="add-file-current-library-input" disabled>
+                  </div>
+
                   <div class="input-group my-3 w-100">
                     <span class="input-group-text" id="basic-addon1"
                       >Title</span
@@ -471,7 +487,10 @@
                       required
                       disabled
                     />
-                  </div>
+                  </div> -->
+
+                  {% csrf_token %}
+                  {{ file_form}}
 
                   <div>
                     <input
@@ -481,7 +500,6 @@
                       class="btn btn-primary me-1"
                       value="Submit"
                       style="width: 7rem"
-                      disabled
                     />
                   </div>
                 </form>
@@ -505,6 +523,7 @@
           </div>
         </div>
       </div>
+
     </main>
 
     <script src="../static/library/baseScripts.js"></script>
