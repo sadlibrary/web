@@ -11,4 +11,5 @@ urlpatterns = [
     path('add-library', views.add_library),
     path('delete-library', views.delete_library),
     path('', views.library_home),
+    path('<int:library_id>', views.upload_file),
 ]

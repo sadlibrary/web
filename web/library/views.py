@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets, permissions
 from library.models import Library
 from library.serializers import LibrarySerializer
-from library.forms import LibraryForm, TypeForm
+from library.forms import LibraryForm, TypeForm, LibraryFileForm
 from django.shortcuts import render, redirect
 
 
@@ -53,4 +53,14 @@ def get_user_libraries(request):
 @login_required
 def delete_library(request):
     Library.objects.all().filter(name=request.POST['library_to_delete']).delete()
+    return redirect('/library')
+
+
+def upload_file(request, library_id):
+    if request.method == 'POST':
+        form = LibraryFileForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            file = form.save(commit=False)
+            file.library = Library.objects.get(id=library_id)
+            file.save()
     return redirect('/library')

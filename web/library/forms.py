@@ -61,3 +61,14 @@ class LibraryForm(forms.ModelForm):
     class Meta:
         model = Library
         fields = ['name', 'description', 'library_type']
+
+
+class LibraryFileForm(forms.ModelForm):
+    file = forms.FileField(
+        widget=forms.FileInput(
+            attrs={'class': 'form-control-file', 'id': 'file'})
+    )
+
+    class Meta:
+        model = LibraryFile
+        fields = ['file', ]
