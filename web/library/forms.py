@@ -64,19 +64,27 @@ class LibraryForm(forms.ModelForm):
 
 
 class FileForm(forms.ModelForm):
-    file = forms.FileField()
-    description = forms.Textarea()
+    file = forms.FileField(widget=forms.FileInput(
+        attrs={'class': 'form-control', 'id': "inputGroupFile01"}))
+    description = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'class': 'form-control',
+                   'placeholder': 'Description',
+                   'aria-label': 'Description', 'rows': '3'})
+    )
     attachments = forms.FileField(
-        widget=forms.ClearableFileInput(attrs={'multiple': True})
+        widget=forms.ClearableFileInput(
+            attrs={'class': 'form-control', 'multiple': True})
     )
 
     class Meta:
         model = LibraryFile
         fields = ['file', 'description']
 
+
 class ActiveLibraryForm(forms.Form):
-    name = forms.CharField(max_length=256, 
-    widget=forms.TextInput(
-        attrs={
-            'class': 'form-control', 
-            'id': 'add-file-current-library-input'}))
+    name = forms.CharField(max_length=256,
+                           widget=forms.TextInput(
+                               attrs={
+                                   'class': 'form-control',
+                                   'id': 'add-file-current-library-input'}))

@@ -29,17 +29,18 @@
     ></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    {% include "nav.html" %}
+    {% comment %} <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <div class="container-fluid">
         <ul class="navbar-nav">
-          {% comment %} <li class="nav-item ms-2">
+          <li class="nav-item ms-2">
             <a
               class="nav-link btn btn-primary text-light"
               style="background-color: #1c73bb; width: 5rem"
               href="#"
               >Home</a
             >
-          </li> {% endcomment %}
+          </li>
           <li class="nav-item ms-2">
             <a
               class="nav-link btn btn-primary text-light"
@@ -70,11 +71,11 @@
           />
         </a>
       </div>
-    </nav>
+    </nav> {% endcomment %}
 
     <!-- libraries -->
     <aside
-      class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white float-start"
+      class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white float-start border-end"
       style="width: 28vw; height: 91vh"
     >
       <div
@@ -318,7 +319,7 @@
   </div>
 
     <!-- files -->
-    <main>
+    <main id="main-section" class="d-none">
       <div id="accordion" class="fileItems p-3 border text-light overflow-auto">
         {% for file in library_files %}
         <div class="card">
@@ -451,46 +452,21 @@
                   class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
                   enctype="multipart/form-data"
                 >
-                  <!-- <div class="input-group my-3 w-100">
-                    <input type="text" value="" id="add-file-current-library-input" disabled>
-                  </div>
-
-                  <div class="input-group my-3 w-100">
-                    <span class="input-group-text" id="basic-addon1"
-                      >Title</span
-                    >
-                    <input
-                      type="text"
-                      id="upload-title"
-                      class="form-control"
-                      placeholder="Title"
-                      aria-label="Title"
-                      aria-describedby="basic-addon1"
-                      required
-                    />
-                  </div>
-
-                  <div class="input-group mb-3 w-100">
-                    <span class="input-group-text">Description</span>
-                    <textarea
-                      class="form-control"
-                      aria-label="Description"
-                      id="upload-description"
-                    ></textarea>
-                  </div>
-
-                  <div class="input-group mb-3 w-100">
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="upload-file"
-                      required
-                      disabled
-                    />
-                  </div> -->
-
                   {% csrf_token %}
-                  {{ file_form}}
+                  <div class="input-group my-3 w-100">
+                    {{ file_form.file }}
+                    <label class="input-group-text" for="inputGroupFile01">{{ file_form.file.label }}</label>
+                  </div>
+
+                  <div class="input-group mb-3 w-100">
+                    <span class="input-group-text">{{ file_form.description.label }}</span>
+                    {{ file_form.description }}
+                  </div>
+
+                  <div class="input-group mb-3 w-100">
+                    {{ file_form.attachments }}
+                    <label class="input-group-text" for="inputGroupFile01">{{ file_form.attachments.label }}</label>
+                  </div>
 
                   <div>
                     <input
