@@ -6,6 +6,7 @@ from library.models import FileAttachment, Library, LibraryFile
 from library.serializers import LibrarySerializer
 from library.forms import ActiveLibraryForm, FileForm, LibraryForm, TypeForm
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 
 class LibraryViewSet(viewsets.ModelViewSet):
@@ -25,7 +26,7 @@ def library_home(request):
     if 'active_library' in request.session:
         library_files = list(get_library_files(request))
     return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
-                                            'file_form': file_form, 'active_library': active_library, 'library_files': library_files})
+                                         'file_form': file_form, 'active_library': active_library, 'library_files': library_files})
 
 
 @login_required
@@ -37,6 +38,7 @@ def add_library_type(request):
             return redirect('/library')
     type_form = TypeForm()
     return render(request, 'base.html', {'type_form': type_form})
+
 
 @login_required
 def add_library(request):
@@ -57,9 +59,30 @@ def get_user_libraries(request):
     user_libraries = Library.objects.all().filter(owner=request.user)
     return user_libraries
 
+
 @login_required
 def delete_library(request):
-    Library.objects.all().filter(name=request.POST['library_to_delete']).delete()
+    Library.objects.all().filter(
+        name=request.POST['library_to_delete']).delete()
+    return redirect('/library')
+
+
+@login_required
+def share_library(request):
+    library_to_share = Library.objects.all().filter(
+        name=request.POST['library_to_share'])[0]
+    library_files = LibraryFile.objects.all().filter(library=library_to_share)
+    library_to_share.id = None
+    user_to_share = User.objects.all().filter(
+        username=request.POST['username_to_share'])[0]
+    library_to_share.owner = user_to_share
+    library_to_share.save()
+
+    for file in library_files:
+        file.id = None
+        file.library = library_to_share
+        file.save()
+
     return redirect('/library')
 
 
@@ -73,7 +96,8 @@ def show_library(request):
 
 @login_required
 def get_library_files(request):
-    active_library = Library.objects.all().filter(name=request.session['active_library'])[0]
+    active_library = Library.objects.all().filter(
+        name=request.session['active_library'])[0]
     library_files = LibraryFile.objects.all().filter(library=active_library)
     return library_files
 
@@ -94,14 +118,16 @@ def add_library_files(request):
         print(request.POST)
         print(request.FILES)
         if form.is_valid():
-            active_library = Library.objects.all().filter(name=request.session['active_library'])[0]
-            #if is_extension_valid(request.FILES, active_library.library_type):
+            active_library = Library.objects.all().filter(
+                name=request.session['active_library'])[0]
+            # if is_extension_valid(request.FILES, active_library.library_type):
             new_file = form.save(commit=False)
             new_file.library = active_library
             new_file.save()
             attachment = request.FILES.get('attachments')
             if attachment:
-                new_attachment = FileAttachment(file=new_file, attachment=attachment)
+                new_attachment = FileAttachment(
+                    file=new_file, attachment=attachment)
                 new_attachment.save()
             form.save_m2m()
             return redirect('/library')

@@ -10,6 +10,7 @@ urlpatterns = [
     path('add-type', views.add_library_type),
     path('add-library', views.add_library),
     path('delete-library', views.delete_library),
+    path('share-library', views.share_library),
     path('add-file', views.add_library_files),
     path('show-library', views.show_library),
     path('', views.library_home),

@@ -65,7 +65,11 @@ a[disabled] {
 }
 
 .bg-costume {
-  background-image: linear-gradient(to left, #6441a5, #2a0845);
+  background-image: linear-gradient(
+    to right,
+    var(--button-color),
+    var(--active)
+  );
 }
 
 .download-hover {
