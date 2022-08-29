@@ -81,6 +81,10 @@ class FileForm(forms.ModelForm):
         model = LibraryFile
         fields = ['file', 'description']
 
+    def __init__(self, *args, **kwargs):
+        super(FileForm, self).__init__(*args, **kwargs)
+        self.fields['attachments'].required = False
+
 
 class ActiveLibraryForm(forms.Form):
     name = forms.CharField(max_length=256,

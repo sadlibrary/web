@@ -24,8 +24,6 @@ def library_home(request):
     user_libraries = get_user_libraries(request)
     if 'active_library' in request.session:
         library_files = list(get_library_files(request))
-       
-        del request.session['active_library']
     return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
                                             'file_form': file_form, 'active_library': active_library, 'library_files': library_files})
 
@@ -101,8 +99,10 @@ def add_library_files(request):
             new_file = form.save(commit=False)
             new_file.library = active_library
             new_file.save()
-            new_attachment = FileAttachment(file=new_file, attachment=request.FILES['attachments'])
-            new_attachment.save()
+            attachment = request.FILES.get('attachments')
+            if attachment:
+                new_attachment = FileAttachment(file=new_file, attachment=attachment)
+                new_attachment.save()
             form.save_m2m()
             return redirect('/library')
         print(form.errors)
