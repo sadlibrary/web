@@ -63,7 +63,7 @@ def get_user_libraries(request):
 @login_required
 def delete_library(request):
     Library.objects.all().filter(
-        name=request.POST['library_to_delete']).delete()
+        name=request.POST['library_to_delete'], owner=request.user).delete()
     return redirect('/library')
 
 
@@ -78,10 +78,13 @@ def share_library(request):
     library_to_share.owner = user_to_share
     library_to_share.save()
 
-    for file in library_files:
-        file.id = None
-        file.library = library_to_share
-        file.save()
+    for original_file in library_files:
+        # original_file.id = None
+        # original_file.library = library_to_share
+        new_file = LibraryFile(library=library_to_share,
+                               file=original_file.file)
+        new_file.save()
+        # original_file.save()
 
     return redirect('/library')
 

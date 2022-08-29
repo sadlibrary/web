@@ -1,5 +1,7 @@
 from enum import unique
 from django.db import models
+from django.dispatch import receiver
+import os
 
 
 class LibraryTypes(models.Model):
@@ -40,6 +42,13 @@ class LibraryFile(models.Model):
 
     def __str__(self):
         return self.file.name
+
+
+@receiver(models.signals.post_delete, sender=LibraryFile)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
 
 
 class FileAttachment(models.Model):
