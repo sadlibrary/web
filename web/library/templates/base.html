@@ -443,7 +443,7 @@
           <a
             class="card-header item p-2 mx-auto mb-3 bg-costume border w-100 text-light d-flex flex-row align-items-center text-decoration-none justify-content-between"
             data-bs-toggle="collapse"
-            href="#{{file.id}}"
+            href="#collapse{{file.id}}"
           >
             <div
               class="d-flex flex-row justify-content-between align-items-center ms-2"
@@ -470,8 +470,8 @@
             </div>
           </a>
           <div
-            id="{{file.id}}"
-            class="collapse show"
+            id="collapse{{file.id}}"
+            class="collapse"
             data-bs-parent="#accordion"
           >
             <div class="card-body text-dark">
