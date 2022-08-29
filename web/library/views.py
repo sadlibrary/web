@@ -22,11 +22,14 @@ def library_home(request):
     file_form = FileForm()
     active_library = ActiveLibraryForm()
     library_files = []
+    attachments = []
     user_libraries = get_user_libraries(request)
     if 'active_library' in request.session:
-        library_files = list(get_library_files(request))
+        library_files, attachments = get_library_files(request)
+        library_files = list(library_files)
     return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
-                                         'file_form': file_form, 'active_library': active_library, 'library_files': library_files})
+                                         'file_form': file_form, 'active_library': active_library, 'library_files': library_files,
+                                         'attachments': attachments, 'range_file': range(len(library_files))})
 
 
 @login_required
@@ -100,9 +103,17 @@ def show_library(request):
 @login_required
 def get_library_files(request):
     active_library = Library.objects.all().filter(
-        name=request.session['active_library'])[0]
+        name=request.session['active_library'], owner=request.user)[0]
     library_files = LibraryFile.objects.all().filter(library=active_library)
-    return library_files
+    attachments = []
+    for file in library_files:
+        attachment = FileAttachment.objects.all().filter(file=file)
+        if (attachment):
+            attachments.append(attachment[0])
+        else:
+            attachments.append(None)
+
+    return library_files, attachments
 
 
 def is_extension_valid(FILES, library_type):

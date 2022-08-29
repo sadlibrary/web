@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load dicttag %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,8 +30,8 @@
     ></script>
   </head>
   <body>
-    {% include "nav.html" %}
-    {% comment %} <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    {% include "nav.html" %} {% comment %}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <div class="container-fluid">
         <ul class="navbar-nav">
           <li class="nav-item ms-2">
@@ -71,7 +72,8 @@
           />
         </a>
       </div>
-    </nav> {% endcomment %}
+    </nav>
+    {% endcomment %}
 
     <!-- libraries -->
     <aside
@@ -168,17 +170,19 @@
     </aside>
 
     <div class="d-none">
-      <form id="current-library-form" action="/library/show-library" method="post">
-        {% csrf_token %}
-        {{ active_library }}
-        <input id="current-library-button" class="btn" type="submit">
+      <form
+        id="current-library-form"
+        action="/library/show-library"
+        method="post"
+      >
+        {% csrf_token %} {{ active_library }}
+        <input id="current-library-button" class="btn" type="submit" />
       </form>
     </div>
 
     <div class="modal text-dark" id="myLibraryModal" myModal>
       <div class="modal-dialog">
         <div class="modal-content">
-
           <!-- Modal Header -->
           <div class="modal-header text-light bg-primary">
             <h4 class="modal-title">Add New Library...</h4>
@@ -189,28 +193,42 @@
             ></button>
           </div>
 
-
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/library/add-library" method="post" id="library-form"
-                  class="form-container d-flex flex-column p-4 justify-content-center align-items-center">
-              {% csrf_token %} 
-              
+            <form
+              action="/library/add-library"
+              method="post"
+              id="library-form"
+              class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+            >
+              {% csrf_token %}
+
               <div class="input-group my-3 w-100">
-                <span class="input-group-text" id="basic-addon11">{{ library_form.name.label }}</span>
+                <span class="input-group-text" id="basic-addon11"
+                  >{{ library_form.name.label }}</span
+                >
                 {{ library_form.name }}
               </div>
 
               <div class="input-group mb-3 w-100">
-                <span class="input-group-text">{{ library_form.description.label }}</span>
+                <span class="input-group-text"
+                  >{{ library_form.description.label }}</span
+                >
                 {{ library_form.description }}
               </div>
 
               <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">{{ library_form.library_type.label }}</label>
+                <label class="input-group-text" for="inputGroupSelect01"
+                  >{{ library_form.library_type.label }}</label
+                >
                 {{ library_form.library_type }}
               </div>
-              <input type="submit" value="Submit" class="btn btn-primary me-1" style="width: 7rem"/>
+              <input
+                type="submit"
+                value="Submit"
+                class="btn btn-primary me-1"
+                style="width: 7rem"
+              />
             </form>
           </div>
 
@@ -243,16 +261,24 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/library/add-type" method="post" id="type-form"
-                  class="form-container d-flex flex-column p-4 justify-content-center align-items-center">
-              {% csrf_token %} 
+            <form
+              action="/library/add-type"
+              method="post"
+              id="type-form"
+              class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+            >
+              {% csrf_token %}
               <div class="input-group my-3 w-100">
-                <span class="input-group-text" id="basic-addon21">{{ type_form.name.label }}</span>
+                <span class="input-group-text" id="basic-addon21"
+                  >{{ type_form.name.label }}</span
+                >
                 {{ type_form.name }}
               </div>
 
               <div class="input-group mb-3 w-100">
-                <span class="input-group-text">{{ type_form.formats.label }}</span>
+                <span class="input-group-text"
+                  >{{ type_form.formats.label }}</span
+                >
                 {{ type_form.formats }}
               </div>
 
@@ -261,9 +287,16 @@
                 {{ type_form.accepted_attachments_ids }}
               </div>
               <div class="mb-3">
-                <small class="text-secondary">Use comma to seperate extensions.</small>
+                <small class="text-secondary"
+                  >Use comma to seperate extensions.</small
+                >
               </div>
-              <input type="submit" value="Submit" class="btn btn-dark me-1" style="width: 7rem"/>
+              <input
+                type="submit"
+                value="Submit"
+                class="btn btn-dark me-1"
+                style="width: 7rem"
+              />
             </form>
           </div>
 
@@ -296,8 +329,12 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/library/delete-library" method="post" id="delete-library-form"
-                  class="form-container d-flex flex-column p-4 justify-content-center align-items-center">
+            <form
+              action="/library/delete-library"
+              method="post"
+              id="delete-library-form"
+              class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+            >
               {% csrf_token %}
 
               <div class="input-group mb-3 w-100">
@@ -308,8 +345,13 @@
                   {% endfor %}
                 </select>
               </div>
-              
-              <input type="submit" value="Delete" class="btn btn-danger me-1" style="width: 7rem"/>
+
+              <input
+                type="submit"
+                value="Delete"
+                class="btn btn-danger me-1"
+                style="width: 7rem"
+              />
             </form>
           </div>
 
@@ -342,26 +384,40 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/library/share-library" method="post" id="share-library-form"
-                  class="form-container d-flex flex-column p-4 justify-content-center align-items-center">
+            <form
+              action="/library/share-library"
+              method="post"
+              id="share-library-form"
+              class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+            >
               {% csrf_token %}
 
               <div class="input-group mb-3 w-100">
                 <span class="input-group-text">To:</span>
-                <input type="text" class="form-control" name="username_to_share" placeholder="Username"/>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="username_to_share"
+                  placeholder="Username"
+                />
               </div>
 
               <div class="input-group mb-3 w-100">
                 <span class="input-group-text">Share</span>
-                
+
                 <select class="form-control" name="library_to_share">
                   {% for library in user_libraries %}
                   <option>{{ library.name }}</option>
                   {% endfor %}
                 </select>
               </div>
-              
-              <input type="submit" value="Share" class="btn btn-success me-1" style="width: 7rem"/>
+
+              <input
+                type="submit"
+                value="Share"
+                class="btn btn-success me-1"
+                style="width: 7rem"
+              />
             </form>
           </div>
 
@@ -378,7 +434,6 @@
         </div>
       </div>
     </div>
-  </div>
 
     <!-- files -->
     <main id="main-section" class="d-none">
@@ -395,7 +450,9 @@
             >
               <i class="fa-solid fa-file fs-2 float-start"></i>
               <div class="item-contents ms-4">
-                <h3 id="{{file.file.name}}" class="m-0">{{ file.file.name }}</h3>
+                <h3 id="{{file.file.name}}" class="m-0">
+                  {{ file.file.name }}
+                </h3>
                 <script>
                   var file = document.getElementById("{{file.file.name}}");
                   var fileName = file.innerHTML.split("/");
@@ -412,10 +469,17 @@
               <i class="fa-solid fa-download fs-3"></i>
             </div>
           </a>
-          <div id="{{file.id}}" class="collapse show" data-bs-parent="#accordion">
+          <div
+            id="{{file.id}}"
+            class="collapse show"
+            data-bs-parent="#accordion"
+          >
             <div class="card-body text-dark">
               <div class="d-flex flex-row justify-content-center">
-                <a href="/media/{{file.file.name}}" class="text-decoration-none link-dark">
+                <a
+                  href="/media/{{file.file.name}}"
+                  class="text-decoration-none link-dark"
+                >
                   <i class="fa-solid fa-file-arrow-down fs-2 me-3"></i>
                 </a>
                 <i class="fa-solid fa-circle fs-5 mt-2 me-3"></i>
@@ -424,7 +488,7 @@
                   class="attach-link text-decoration-none link-dark d-flex align-items-center me-2"
                 >
                   <i class="fa-solid fa-paperclip fs-2 me-1"></i>
-                  <span class="attach-description">attach file 1</span>
+                  <span class="attach-description">{{ attachments }}</span>
                 </a>
               </div>
             </div>
@@ -468,17 +532,23 @@
                   {% csrf_token %}
                   <div class="input-group my-3 w-100">
                     {{ file_form.file }}
-                    <label class="input-group-text" for="inputGroupFile01">{{ file_form.file.label }}</label>
+                    <label class="input-group-text" for="inputGroupFile01"
+                      >{{ file_form.file.label }}</label
+                    >
                   </div>
 
                   <div class="input-group mb-3 w-100">
-                    <span class="input-group-text">{{ file_form.description.label }}</span>
+                    <span class="input-group-text"
+                      >{{ file_form.description.label }}</span
+                    >
                     {{ file_form.description }}
                   </div>
 
                   <div class="input-group mb-3 w-100">
                     {{ file_form.attachments }}
-                    <label class="input-group-text" for="inputGroupFile01">{{ file_form.attachments.label }}</label>
+                    <label class="input-group-text" for="inputGroupFile01"
+                      >{{ file_form.attachments.label }}</label
+                    >
                   </div>
 
                   <div>
@@ -512,7 +582,6 @@
           </div>
         </div>
       </div>
-
     </main>
 
     <script src="../static/library/baseScripts.js"></script>
