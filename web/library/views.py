@@ -86,6 +86,11 @@ def share_library(request):
                                file=original_file.file)
         new_file.save()
         # original_file.save()
+        original_attachments = FileAttachment.objects.all().filter(file=original_file)
+        for original_attachment in original_attachments:
+            new_attachment = FileAttachment(
+                file=new_file, attachment=original_attachment.attachment)
+            new_attachment.save()
 
     return redirect('/library')
 
