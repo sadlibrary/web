@@ -35,14 +35,17 @@
       </ul>
       <a class="navbar-brand" href="{% url 'authentication:profile' %}">
         <img
-          src="../../static/authentication/images/navbar/profile-picture.svg"
+          src="../../static/authentication/images/4.jpg"
           alt="Profile"
           width="50"
           height="50"
+          style="border-radius: 50%"
+          {%comment%}
           style="
             filter: invert(36%) sepia(99%) saturate(565%) hue-rotate(170deg)
               brightness(89%) contrast(97%);
           "
+          {%endcomment%}
         />
       </a>
     </div>
