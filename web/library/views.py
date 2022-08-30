@@ -80,12 +80,9 @@ def share_library(request):
     library_to_share.save()
 
     for original_file in library_files:
-        # original_file.id = None
-        # original_file.library = library_to_share
         new_file = LibraryFile(library=library_to_share,
                                file=original_file.file)
         new_file.save()
-        # original_file.save()
         original_attachments = FileAttachment.objects.all().filter(file=original_file)
         for original_attachment in original_attachments:
             new_attachment = FileAttachment(
@@ -131,9 +128,6 @@ def add_library_files(request):
         form = FileForm(request.POST, request.FILES)
         active_library = Library.objects.all().filter(
             name=form.data['library_name'])[0]
-        # form.initial['library'] = active_library.id
-        # form = FileForm(request.POST, request.FILES, initial={
-        #                 'library': active_library})
         form.library = active_library
         if form.is_valid():
             new_file = form.save(commit=False)
@@ -143,7 +137,6 @@ def add_library_files(request):
                 new_attachment = FileAttachment(
                     file=new_file, attachment=attachment)
                 new_attachment.save()
-            # form.save_m2m()
             return redirect('/library')
         else:
             type_form = TypeForm()
@@ -156,6 +149,5 @@ def add_library_files(request):
             return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
                                                  'file_form': form, 'active_library_form': active_library_form, 'library_files': library_files,
                                                  'active_library': request.session['active_library'], 'open_file_form': True})
-            # return render(request, 'base.html', {'file_form': form, 'active_library': request.session['active_library'], 'open_file_form': True})
     file_form = FileForm()
     return render(request, 'base.html', {'file_form': file_form, 'active_library': request.session['active_library']})
