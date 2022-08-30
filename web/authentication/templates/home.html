@@ -54,12 +54,21 @@
                 The best organized free drive for you!
               </p>
               <p class="text-light my-4">Just hit the button below and sign-up if you don't have an account <i>for free<i>.</p>
-              <a
-                href="./auth"
+              {% if user.is_authenticated %}
+                <a
+                href="/library"
+                class="home-btn btn btn-warning btn-lg text-dark text-center p-3 px-5"
+              >
+                Go To Library
+              </a>
+              {% else %}
+                <a
+                href="/auth"
                 class="home-btn btn btn-warning btn-lg text-dark text-center p-3 px-5"
               >
                 Login/Register
               </a>
+              {% endif %}
             </div>
           </div>
           <div class="col-md"></div>

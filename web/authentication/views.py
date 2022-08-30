@@ -9,6 +9,8 @@ BUTTON_REGISTER = 'register'
 
 
 def start_page(request):
+    # if request.user.is_authenticated:
+    #     return redirect('/library')
     return render(request, 'home.html')
 
 

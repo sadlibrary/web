@@ -43,6 +43,9 @@ class LibraryFile(models.Model):
     def __str__(self):
         return self.file.name
 
+    def file_name(self):
+        return os.path.basename(self.file.name)
+
 
 @receiver(models.signals.post_delete, sender=LibraryFile)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
@@ -61,3 +64,6 @@ class FileAttachment(models.Model):
 
     def __str__(self):
         return self.attachment.name
+
+    def filename(self):
+        return os.path.basename(self.attachment.name)

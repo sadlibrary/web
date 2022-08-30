@@ -25,11 +25,10 @@ def library_home(request):
     attachments = []
     user_libraries = get_user_libraries(request)
     if 'active_library' in request.session:
-        library_files, attachments = get_library_files(request)
-        library_files = list(library_files)
+        library_files = get_library_files(request)
     return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
                                          'file_form': file_form, 'active_library': active_library, 'library_files': library_files,
-                                         'attachments': attachments, 'range_file': range(len(library_files))})
+                                         })
 
 
 @login_required
@@ -107,13 +106,10 @@ def get_library_files(request):
     library_files = LibraryFile.objects.all().filter(library=active_library)
     attachments = []
     for file in library_files:
-        attachment = FileAttachment.objects.all().filter(file=file)
-        if (attachment):
-            attachments.append(attachment[0])
-        else:
-            attachments.append(None)
+        attachment = file.attachments.all()
+        attachments.append(attachment)
 
-    return library_files, attachments
+    return zip(library_files, attachments)
 
 
 def is_extension_valid(FILES, library_type):
@@ -138,12 +134,12 @@ def add_library_files(request):
             new_file = form.save(commit=False)
             new_file.library = active_library
             new_file.save()
-            attachment = request.FILES.get('attachments')
-            if attachment:
+            print(request.FILES.get('attachments'))
+            for attachment in request.FILES.getlist('attachments'):
                 new_attachment = FileAttachment(
                     file=new_file, attachment=attachment)
                 new_attachment.save()
-            form.save_m2m()
+            # form.save_m2m()
             return redirect('/library')
         print(form.errors)
     file_form = FileForm()
