@@ -27,7 +27,7 @@ def library_home(request):
         library_files = get_library_files(request)
     return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
                                          'file_form': file_form, 'active_library_form': active_library_form, 'library_files': library_files,
-                                         'active_library': request.session['active_library']})
+                                         'active_library': request.session.get('active_library')})
 
 
 @login_required

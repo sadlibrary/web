@@ -117,3 +117,14 @@ a[disabled] {
 .error-css {
   color: var(--danger);
 }
+
+.error-css ul {
+  text-align: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.error-css ul li {
+  text-align: left;
+}
