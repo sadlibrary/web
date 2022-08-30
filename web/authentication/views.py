@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponse
 from authentication.forms import *
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 
 BUTTON_LOGIN = 'login'
 BUTTON_REGISTER = 'register'
@@ -84,3 +85,12 @@ def edit_profile(request):
 @login_required
 def view_profile(request):
     return render(request, 'authentication/profile.html', {'user': request.user})
+
+
+@login_required
+def change_password(request):
+    u = request.user
+    u.set_password(request.POST['password'])
+    u.save()
+    update_session_auth_hash(request, u)
+    return redirect('/auth/profile')

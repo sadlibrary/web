@@ -11,6 +11,56 @@
 {% include "authentication/nav.html" %}
 <div class="container py-5 d-flex flex-column justify-content-center align-items-center shadow-lg mx-auto m-5 w-25">
     {% block content %}{% endblock %}
+    <div class="modal text-dark" id="myPassChangeModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-light bg-warning">
+              <h4 class="modal-title">Change Password</h4>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+              <form
+                action="/authentication/change-password"
+                method="post"
+                id="password-change-form"
+                class="form-container d-flex flex-column p-4 justify-content-center align-items-center"
+              >
+                {% csrf_token %}
+      
+                <div class="input-group mb-3 w-100">
+                  <span class="input-group-text">New Password</span>
+                  <input type="password" class="form-control" name="password" id="password" placeholder="New Password">
+                </div>
+      
+                <input
+                  type="submit"
+                  value="Change"
+                  class="btn btn-warning me-1"
+                  style="width: 7rem"
+                />
+              </form>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
