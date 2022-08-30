@@ -175,12 +175,12 @@
         action="/library/show-library"
         method="post"
       >
-        {% csrf_token %} {{ active_library }}
+        {% csrf_token %} {{ active_library_form }}
         <input id="current-library-button" class="btn" type="submit" />
       </form>
     </div>
 
-    <div class="modal text-dark" id="myLibraryModal" myModal>
+    <div class="modal text-dark" id="myLibraryModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->
@@ -246,7 +246,7 @@
       </div>
     </div>
 
-    <div class="modal text-dark" id="myTypeModal" myModal>
+    <div class="modal text-dark" id="myTypeModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->
@@ -314,7 +314,7 @@
       </div>
     </div>
 
-    <div class="modal text-dark" id="myDeleteModal" myModal>
+    <div class="modal text-dark" id="myDeleteModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->
@@ -369,7 +369,7 @@
       </div>
     </div>
 
-    <div class="modal text-dark" id="myShareModal" myModal>
+    <div class="modal text-dark" id="myShareModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->
@@ -457,9 +457,9 @@
               </div>
             </div>
             {% comment %}
-            <div class="download-hover float-end">
+            <div class="trash-hover float-end">
               <span class="fs-2">|</span>
-              <i class="fa-solid fa-download fs-3"></i>
+              <i class="fa-solid fa-trash-can fs-3"></i>
             </div>
             {% endcomment %}
           </a>
@@ -504,6 +504,13 @@
         >
           + Add New File
         </button>
+        {% if open_file_form %}
+        <script>
+          $(document).ready(function () {
+            $("#myModal").modal("show");
+          });
+        </script>
+        {% endif %}
 
         <div class="modal text-dark" id="myModal">
           <div class="modal-dialog">
@@ -528,6 +535,13 @@
                   enctype="multipart/form-data"
                 >
                   {% csrf_token %}
+
+                  <input
+                    type="hidden"
+                    name="library_name"
+                    value="{{active_library}}"
+                  />
+
                   <div class="input-group my-3 w-100">
                     {{ file_form.file }}
                     <label class="input-group-text" for="inputGroupFile01"
@@ -548,6 +562,10 @@
                       >{{ file_form.attachments.label }}</label
                     >
                   </div>
+                  <span class="error-css"> {{ file_form.file.errors }} </span>
+                  <span class="error-css">
+                    {{ file_form.attachments.errors }}
+                  </span>
 
                   <div>
                     <input

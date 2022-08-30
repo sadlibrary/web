@@ -20,15 +20,14 @@ def library_home(request):
     type_form = TypeForm()
     library_form = LibraryForm()
     file_form = FileForm()
-    active_library = ActiveLibraryForm()
+    active_library_form = ActiveLibraryForm()
     library_files = []
-    attachments = []
     user_libraries = get_user_libraries(request)
     if 'active_library' in request.session:
         library_files = get_library_files(request)
     return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
-                                         'file_form': file_form, 'active_library': active_library, 'library_files': library_files,
-                                         })
+                                         'file_form': file_form, 'active_library_form': active_library_form, 'library_files': library_files,
+                                         'active_library': request.session['active_library']})
 
 
 @login_required
@@ -39,7 +38,7 @@ def add_library_type(request):
             form.save()
             return redirect('/library')
     type_form = TypeForm()
-    return render(request, 'base.html', {'type_form': type_form})
+    return render(request, 'base.html', {'type_form': type_form, 'active_library': request.session['active_library']})
 
 
 @login_required
@@ -53,7 +52,7 @@ def add_library(request):
             form.save_m2m()
             return redirect('/library')
     library_form = LibraryForm()
-    return render(request, 'base.html', {'library_form': library_form})
+    return render(request, 'base.html', {'library_form': library_form, 'active_library': request.session['active_library']})
 
 
 @login_required
@@ -125,22 +124,33 @@ def is_extension_valid(FILES, library_type):
 def add_library_files(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
-        print(request.POST)
-        print(request.FILES)
+        active_library = Library.objects.all().filter(
+            name=form.data['library_name'])[0]
+        # form.initial['library'] = active_library.id
+        # form = FileForm(request.POST, request.FILES, initial={
+        #                 'library': active_library})
+        form.library = active_library
         if form.is_valid():
-            active_library = Library.objects.all().filter(
-                name=request.session['active_library'])[0]
-            # if is_extension_valid(request.FILES, active_library.library_type):
             new_file = form.save(commit=False)
             new_file.library = active_library
             new_file.save()
-            print(request.FILES.get('attachments'))
             for attachment in request.FILES.getlist('attachments'):
                 new_attachment = FileAttachment(
                     file=new_file, attachment=attachment)
                 new_attachment.save()
             # form.save_m2m()
             return redirect('/library')
-        print(form.errors)
+        else:
+            type_form = TypeForm()
+            library_form = LibraryForm()
+            active_library_form = ActiveLibraryForm()
+            library_files = []
+            user_libraries = get_user_libraries(request)
+            if 'active_library' in request.session:
+                library_files = get_library_files(request)
+            return render(request, 'base.html', {'type_form': type_form, 'library_form': library_form, 'user_libraries': user_libraries,
+                                                 'file_form': form, 'active_library_form': active_library_form, 'library_files': library_files,
+                                                 'active_library': request.session['active_library'], 'open_file_form': True})
+            # return render(request, 'base.html', {'file_form': form, 'active_library': request.session['active_library'], 'open_file_form': True})
     file_form = FileForm()
-    return render(request, 'base.html', {'file_form': file_form})
+    return render(request, 'base.html', {'file_form': file_form, 'active_library': request.session['active_library']})

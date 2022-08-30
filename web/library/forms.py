@@ -73,8 +73,13 @@ class FileForm(forms.ModelForm):
                    'aria-label': 'Description', 'rows': '3'})
     )
     attachments = forms.FileField(
+        required=False,
         widget=forms.ClearableFileInput(
             attrs={'class': 'form-control', 'multiple': True})
+    )
+
+    library_name = forms.CharField(
+        widget=forms.HiddenInput()
     )
 
     class Meta:
@@ -84,6 +89,24 @@ class FileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FileForm, self).__init__(*args, **kwargs)
         self.fields['attachments'].required = False
+
+    def clean_file(self):
+        ext = os.path.splitext(self.cleaned_data['file'].name)[-1]
+        valid_extensions = self.library.library_type.formats.split(',')
+        if not ext.lower() in valid_extensions:
+            raise ValidationError('Unsupported file extension.')
+        return self.cleaned_data['file']
+
+    def clean_attachments(self):
+        attachments = self.files.getlist('attachments')
+        if attachments:
+            for attachment in attachments:
+                ext = os.path.splitext(attachment.name)[-1]
+                valid_extensions = self.library.library_type.accepted_attachments_ids.split(
+                    ',')
+                if not ext.lower() in valid_extensions:
+                    raise ValidationError('Unsupported attachment extension.')
+        return attachments
 
 
 class ActiveLibraryForm(forms.Form):
